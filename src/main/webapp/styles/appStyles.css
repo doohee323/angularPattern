@@ -1,0 +1,28 @@
+body {
+    padding: 0px;
+}
+
+footer {
+    margin-top:10px;
+    font-weight: bold;
+}
+
+/* Bootstrap overrides */
+.navbar-inner {
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.navbar .nav {
+    margin-left:50px;
+    margin-top:15px;
+}
+
+.close {
+    opacity: 1.0;
+}
+
+.ngGrid .well {
+  height: 200px;
+}
+

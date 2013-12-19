@@ -1,0 +1,61 @@
+<div class="header">
+  <ul class="nav nav-pills pull-right">
+    <li class="active"><a ng-href="#">Home</a></li>
+    <li><a ng-href="#">About</a></li>
+    <li><a ng-href="#">Contact</a></li>
+  </ul>
+  <h3 class="text-muted">PBF angular.js</h3>
+</div>
+
+<form class="form-horizontal">
+	<div class="panel panel-default">
+	  <div class="panel-body">
+		<div class="col-sm-5">
+	    	<h1>{{title}}</h1>
+		</div>
+		<div class="col-sm-2">
+			<p class="lead">
+		    	<img src="images/yeoman.png" alt="I'm Yeoman">
+			</p>
+		</div>
+		<div class="col-sm-5">
+	    	<h3>{{slogan}}</h3>
+		</div>
+	  </div>
+	</div>
+</form>
+
+<div>
+    <div class="span4 card" ng-repeat="center in patterns | orderBy:'name'">
+		<form class="form-horizontal" role="form">
+			<div class="panel panel-default">
+			  <div class="panel-body">
+			    <label class="col-sm-2" for="queryCode">
+			    	<h4><a ng-click="goLocation(center.sample)">{{center.name}}</a></h4>
+				</label>
+				<div class="col-sm-5">
+				  	<a ng-click="goLocation(center.sample)"><img src="{{center.image}}"></a><br>
+				</div>
+				<div class="col-sm-4">
+				    <h3>{{center.desc}}</h3>
+				</div>
+				<div class="col-sm-1">
+					<a ng-click="goLocation(center.sample)">[Sample]</a>
+				</div>
+			  </div>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="http://www.gliffy.com/diagramEmbed.js"
+	type="text/javascript">
+</script>
+<script type="text/javascript">
+	gliffy_did = "4883690";
+	//embedGliffy();
+</script>
+
+<div class="footer">
+  <p>from the topzone2013 team</p>
+</div>
