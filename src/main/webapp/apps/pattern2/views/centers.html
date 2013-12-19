@@ -1,0 +1,38 @@
+
+<div class="centers view" ng-controller="CentersCtrl">
+
+    <form class="ui form segment">
+    <div class="container">
+	    <div class="page-header">
+	    	<br>
+	        <h1>Centers (Master table)</h1>
+	    </div>        
+
+        <div>
+            <div class="ngGrid" >
+		        <ng-excel id="gridCenter" data="uip_center" rows="100" cols="100" width="100%" height="200"></ng-excel>
+            </div>
+            <div class="col-md-12">
+                <commbutton type="retrieve" data="Center"></commbutton>
+                <commbutton type="insert" data="Center"></commbutton>
+                <commbutton type="delete" data="Center"></commbutton>
+                <commbutton type="save" data="Center" dataset="uip_center"></commbutton>
+                <commbutton type="init" data="Center"></commbutton>
+		        <commbutton type="goHome" data="Center"></commbutton>
+            </div>
+        </div>
+    </div>
+    </form>
+</div>
+
+<style type="text/css">
+.textbox {
+	width: 600px;
+	height: 150px;
+	overflow: auto;
+	margin: 5px 0;
+}
+</style>
+<span class="title">Event log</span>
+<div id="content_log" class="textbox"></div>
+

@@ -1,0 +1,69 @@
+    <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <!--[if lt IE 9]>
+      <script src="../../../bower_components/es5-shim/es5-shim.js"></script>
+      <script src="../../../bower_components/json3/lib/json3.min.js"></script>
+    <![endif]-->
+
+  <!-- dddddddddd start -->
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" ng-click="goLocation('/')">             
+            <img src="../../../images/people.png" alt="logo"> Topzone 2013 
+          </a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a ui-sref="default.centers" ng-show="$state.includes('default.regions')">Centers</a></li>
+            <li><a ui-sref='default.regions' ng-show="$state.includes('default.centers')">Regions</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li class="dropdown-header">List</li>
+                <li><a ui-sref="default.centers">Centers</a></li>
+                <li><a ui-sref="default.regions">Regions</a></li>
+                <li class="divider"></li>
+                <li class="dropdown-header">Login</li>
+                <li><a href="#/">login</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>    
+  
+    <!-- Add your site or application content here -->
+    <div class="container" ui-view/>
+
+     <div id="footer">
+      <div class="navbar navbar-fixed-bottom">
+        <div class="navbar-inner">
+          <div class="container">
+            <footer>
+              <div class="row">
+                <div class="span4">Created by Dewey Hong</div>
+                <div class="span4">
+                  Github: <a href="https://github.com/doohee323" target='_blank'>@DeweyHong</a>
+                </div>
+                <div class="span4">
+                  Blog: <a href="http://doohee323.blogspot.kr" target='_blank'>http://doohee323.blogspot.kr</a>
+                </div>
+              </div>
+            </footer>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- dddddddddd end -->
+    
+    

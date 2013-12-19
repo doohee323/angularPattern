@@ -1,0 +1,72 @@
+
+<div ng-controller="RegionsCtrl">
+    <div class="page-header">
+    	<br>
+        <h1>Regions (Detail table)</h1>
+    </div>
+    
+	<form class="form-horizontal" role="form" name="myForm">
+		<div class="panel panel-default">
+		  <div class="panel-body">
+		    <label class="col-sm-1" for="queryCenterCode">Center Code</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" name="queryCenterCode" ng-model="queryCenterCode" placeholder="Enter Center Code" required>
+				<span class="error" ng-show="myForm.queryCenterCode.$error.required">
+					<div class="alert alert-warning">Required!</div>
+				</span>
+			</div>
+		    <label class="col-sm-1" for="queryCode">Region Code</label>
+			<div class="col-sm-4">
+				<input type="text" class="form-control" name="queryCode" ng-model="queryCode" placeholder="Enter Code" required>
+				<span class="error" ng-show="myForm.queryCode.$error.required">
+					<div class="alert alert-warning">Required!</div>
+				</span>
+				<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+			</div>
+			<div class="col-sm-2">
+				<commbutton type="retrieve" data="Region"></commbutton>
+			</div>
+		  </div>
+		</div>
+	</form>
+	
+	<form role="form">
+	  <div class="form-group">
+	    <div class="col-xs-6">
+            <label for="uip_center_id">uip_center_id</label>
+            <input ng-model="uip_region.uip_center_id" type="text" class="form-control" ng-disabled="true" placeholder="uip_center_id">
+        </div>
+	    <div class="col-xs-6">
+            <label for="id">id</label>
+            <input ng-model="uip_region.id" type="text" class="form-control" ng-disabled="true" placeholder="id">
+        </div>
+        <div class="col-xs-6">
+            <label for="code">code</label>
+            <input ng-model="uip_region.code" type="text" class="form-control" placeholder="code">
+        </div>
+        <div class="col-xs-6">
+            <label for="region_code">region_code</label>
+            <input ng-model="uip_region.region_code" type="text" class="form-control" placeholder="region_code">
+        </div>
+        <div class="col-xs-6">
+            <label for="name">name</label>
+            <input ng-model="uip_region.name" type="text" class="form-control" placeholder="name">
+        </div>
+        <div class="col-xs-6">
+            <label for="chief">chief</label>
+            <input ng-model="uip_region.chief" type="text" class="form-control" placeholder="chief">
+        </div>
+        <div class="col-xs-6">
+            <label for="address">address</label>
+            <input ng-model="uip_region.address" type="text" class="form-control" placeholder="address">
+        </div>
+        <div class="col-md-12">
+	    	<br>
+	        <commbutton type="save" data="Region" dataset="uip_region"></commbutton>
+	        <commbutton type="delete" data="Region"></commbutton>
+	        <commbutton type="init" data="Region"></commbutton>
+	        <commbutton type="goHome" data="Region"></commbutton>
+		</div>
+	  </div>
+	</form>	
+	

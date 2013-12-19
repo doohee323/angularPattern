@@ -1,0 +1,62 @@
+
+<div ng-controller="CentersCtrl">
+    <div class="page-header">
+    	<br>
+        <h1>Centers (Master table)</h1>
+    </div>
+    
+	<form class="form-horizontal" role="form" name="myForm">
+		<div class="panel panel-default">
+		  <div class="panel-body">
+		    <label class="col-sm-2" for="queryCode">Center Code</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" name="queryCode" ng-model="queryCode" placeholder="Enter Code" required>
+				<span class="error" ng-show="myForm.queryCode.$error.required">
+					<div class="alert alert-warning">Required!</div>
+				</span>
+<!-- 		        <pbfAlert data="aaa"/> -->
+				<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+			</div>
+			<div class="col-sm-2">
+				<commbutton type="retrieve" data="Center"></commbutton>
+			</div>
+		  </div>
+		</div>
+	</form>
+    
+	<form role="form">
+	  <div class="form-group">
+	    <div class="col-xs-6">
+            <label for="id">id</label>
+            <input ng-model="uip_center.id" type="text" class="form-control" ng-disabled="true" placeholder="id">
+        </div>
+        <div class="col-xs-6">
+            <label for="code">code</label>
+            <input ng-model="uip_center.code" type="text" class="form-control" placeholder="code">
+        </div>
+        <div class="col-xs-6">
+            <label for="name">name</label>
+            <input ng-model="uip_center.name" type="text" class="form-control" placeholder="name">
+        </div>
+        <div class="col-xs-6">
+            <label for="chief">chief</label>
+            <input ng-model="uip_center.chief" type="text" class="form-control" placeholder="chief">
+        </div>
+        <div class="col-xs-6">
+            <label for="address">address</label>
+            <input ng-model="uip_center.address" type="text" class="form-control" placeholder="address">
+        </div>
+        <div class="col-xs-6">
+            <label for="phone">phone</label>
+            <input ng-model="uip_center.phone" type="text" class="form-control" placeholder="phone">
+        </div>
+        <div class="col-md-12">
+	    	<br>
+	        <commbutton type="save" data="Center" dataset="uip_center"></commbutton>
+	        <commbutton type="delete" data="Center"></commbutton>
+	        <commbutton type="init" data="Center"></commbutton>
+	        <commbutton type="goHome" data="Center"></commbutton>
+		</div>
+	  </div>
+	</form>
+

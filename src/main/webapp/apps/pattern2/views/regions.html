@@ -1,0 +1,27 @@
+<div class="regions view" ng-controller="RegionsCtrl" ng-init="init()">
+    <form class="ui form segment">
+    <div class="container">
+	    <div class="page-header">
+	    	<br>
+	        <h1>Regions (Detail table)</h1>
+	    </div>        
+
+        <div>
+           <h4>centers : 
+            <select ng-model="uip_center" ng-selected="center_id" ng-change="getRegions()" ng-options="uip_center.name for uip_center in uip_center | orderBy:orderby:reverse"></select>
+           </h4>
+            <div class="ngGrid" >
+              <ng-excel id="gridRegion" data="uip_region" rows="100" cols="100" width="100%" height="200"></ng-excel>
+            </div>
+            <div class="span5">
+                <commbutton type="retrieve" data="Region"></commbutton>
+                <commbutton type="insert" data="Region"></commbutton>
+                <commbutton type="delete" data="Region"></commbutton>
+                <commbutton type="save" data="Region"></commbutton>
+                <commbutton type="init" data="Region"></commbutton>
+                <commbutton type="goHome" data="Region"></commbutton>
+            </div>
+        </div>
+        </div>
+    </form>
+</div>
