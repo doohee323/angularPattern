@@ -28,7 +28,7 @@ angular.module('sheepwebApp')
 			name : 'P4 Master / Detail [1:n]',
 			image : 'images/4.png',
 			desc : 'Retrieve single master data and perform CRUD actions for multi detail data on a screen.',
-			sample : '/'
+			sample : 'apps/pattern4/index.html'
 		},
 		{
 			name : 'P5 Master / Detail [n:1]</h4>',

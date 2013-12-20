@@ -2,7 +2,7 @@
 <div ng-controller="CentersCtrl">
     <div class="page-header">
     	<br>
-        <h2>Center (Detail Edit)</h2>
+        <h2>Centers (Master table)</h2>
     </div>
     
 	<form class="form-horizontal" role="form" name="myForm">
@@ -54,8 +54,31 @@
 	        <commbutton type="save" data="Center" dataset="uip_center"></commbutton>
 	        <commbutton type="delete" data="Center"></commbutton>
 	        <commbutton type="init" data="Center"></commbutton>
-	        <commbutton type="list" data="Center"></commbutton>
+	        <commbutton type="goHome" data="Center"></commbutton>
 		</div>
 	  </div>
 	</form>
+
+	<div ng-controller="RegionsCtrl">
+	    <div class="container">
+		    <div class="page-header">
+		    	<br>
+		        <h2>Regions (Detail table)</h2>
+		    </div>        
+	
+	        <div>
+	            <div class="ngGrid" >
+	              <ng-excel id="gridRegion" data="uip_region" rows="100" cols="100" width="100%" height="200"></ng-excel>
+	            </div>
+	            <div class="span5">
+	                <commbutton type="retrieve" data="Region"></commbutton>
+	                <commbutton type="insert" data="Region"></commbutton>
+	                <commbutton type="delete" data="Region"></commbutton>
+	                <commbutton type="save" data="Region"></commbutton>
+	                <commbutton type="init" data="Region"></commbutton>
+	                <commbutton type="goHome" data="Region"></commbutton>
+	            </div>
+	        </div>
+		</div>
+	</div>
 
