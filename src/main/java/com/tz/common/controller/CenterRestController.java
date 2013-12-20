@@ -37,7 +37,7 @@ public class CenterRestController {
     Map<String, Object> uipCenter(@PathVariable("code") String code){
         Map<String, Object> list = new HashMap<String, Object>();
         Center center = centersDAO.getByCode(code);
-        list.put("uip_center", center);
+        list.put("uip_centers", center);
         return list;
     }
     
@@ -55,7 +55,7 @@ public class CenterRestController {
     Map<String, Object> save(@RequestBody Center center){
         Map<String, Object> list = new HashMap<String, Object>();
         centersDAO.save(center);
-        list.put("uip_center", center);
+        list.put("uip_centers", center);
         return list;
     }
 
@@ -64,7 +64,7 @@ public class CenterRestController {
     Map<String, Object> update(@PathVariable("id") int id, @RequestBody Center center){
         Map<String, Object> list = new HashMap<String, Object>();
         center = centersDAO.update(center);
-        list.put("uip_center", center);
+        list.put("uip_centers", center);
         return list;
     }
 

@@ -11,8 +11,8 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $state,
     $scope.retrieveData = function () {
     	$scope.alerts = [];
     	RegionServiceGet.get({uip_center_code: $scope.queryCenterCode, code : $scope.queryCode}, function(data) {
-    	 	$scope.uip_region = data.uip_region;
-    	 	$scope.alert(data.uip_region);
+    	 	$scope.uip_region = data.uip_regions;
+    	 	$scope.alert(data.uip_regions);
     	});
     };
 
@@ -27,16 +27,16 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $state,
         	var params = {uip_region : $scope.uip_region};
         	params = $scope.uip_region; // java
         	RegionService.save(params, function (data) {
-        		$scope.uip_region = data.uip_region;
-        	 	$scope.alert(data.uip_region.id);
+        		$scope.uip_region = data.uip_regions;
+        	 	$scope.alert(data.uip_regions.id);
         	})
     	} else {
         	var params = {uip_region : $scope.uip_region,
    				 id : $scope.uip_region.id};
 		   	params = params.uip_region; // java
 		   	RegionService.update(params, function (data) {
-		   		$scope.uip_region = data.uip_region;
-	    	 	$scope.alert(data.uip_region.id);
+		   		$scope.uip_region = data.uip_regions;
+	    	 	$scope.alert(data.uip_regions.id);
 		   	})
     	}
     };
@@ -44,7 +44,7 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $state,
     $scope.deleteData = function () {
     	$scope.alerts = [];
     	RegionService.delete({"id" : $scope.uip_region.id}, function (data) {
-    	 	$scope.alert(data.uip_region);
+    	 	$scope.alert(data.uip_regions);
     		$scope.uip_region = {};
     	})
     };

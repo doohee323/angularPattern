@@ -13,8 +13,8 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, CenterS
     $scope.retrieveData = function () {
     	$scope.alerts = [];
     	CenterService.get({code : $scope.queryCode}, function(data) {
-    	 	$scope.uip_center = data.uip_center;
-    	 	$scope.alert(data.uip_center);
+    	 	$scope.uip_center = data.uip_centers;
+    	 	$scope.alert(data.uip_centers);
     	});
     };
     $scope.saveData = function () {
@@ -23,23 +23,23 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, CenterS
         	var params = {uip_center : $scope.uip_center};
         	params = $scope.uip_center; // java
         	CenterService.save(params, function (data) {
-        		$scope.uip_center = data.uip_center;
-        		$scope.alert(data.uip_center.id);
+        		$scope.uip_center = data.uip_centers;
+        		$scope.alert(data.uip_centers.id);
         	})
     	} else {
         	var params = {uip_center : $scope.uip_center,
    				 id : $scope.uip_center.id};
 		   	params = params.uip_center; // java
 		   	CenterService.update(params, function (data) {
-		   		$scope.uip_center = data.uip_center;
-		   		$scope.alert(data.uip_center.id);
+		   		$scope.uip_center = data.uip_centers;
+		   		$scope.alert(data.uip_centers.id);
 		   	})
     	}
     };
     $scope.deleteData = function () {
     	$scope.alerts = [];
     	CenterService.delete({"id" : $scope.uip_center.id}, function (data) {
-    		$scope.alert(data.uip_center);
+    		$scope.alert(data.uip_centers);
     		$scope.uip_center = {};
     	})
     };

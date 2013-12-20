@@ -34,6 +34,15 @@ public class RegionsDAO {
 		return (Region)criteria.uniqueResult();
 	}
 	
+	@SuppressWarnings("unchecked")
+	public List<Region> getByCode2(String uipCenterCode) {
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Region.class);
+		int uip_center_id = centersDAO.getByCode(uipCenterCode).getId();
+		criteria.add(Restrictions.eq("uip_center_id", uip_center_id));
+		return criteria.list();
+	}
+	
 	public Region getById(int uipCenterId, int id) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				Region.class);

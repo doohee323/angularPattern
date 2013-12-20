@@ -28,6 +28,15 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $timeou
 		}
 	}, true);
 	
+    $scope.searchData = function () {
+    	$scope.alerts = [];
+    	$scope.retrieveData({code : $scope.queryCode});
+//    	CenterService.get({code : $scope.queryCode}, function(data) {
+//    	 	$scope.uip_centers = data.uip_centers;
+//    	 	//$scope.alert(data.uip_centers);
+//    	});
+    };
+	
     $scope.goHomeData = function () {
     	document.location = '/';
 	}

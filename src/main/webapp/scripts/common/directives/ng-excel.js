@@ -73,10 +73,21 @@ app.directive('ngExcel', function($compile, $timeout, config){
 	    	var params = {};
 	    	if(input) params = input;
 	    	_service.get(params, function(data) {
-	            for (var i = 0; i < data[_datasets].length; i++) {
-	                data[_datasets][i].status = 'R';
-	            };
-	            scope[_dataset] = data[_datasets];
+	    		if(data[_datasets]) {
+	    			if(data[_datasets].length) {
+			            for (var i = 0; i < data[_datasets].length; i++) {
+			                data[_datasets][i].status = 'R';
+			            };
+			            scope[_dataset] = data[_datasets];
+	    			} else if(data[_datasets].length > 0){
+			            data[_datasets].status = 'R';
+			            var list = [];
+			            list[0] = data[_datasets];
+			            scope[_dataset] = list;
+	    			}
+	    		} else {
+	    			// no data
+	    		}
 	        });
 	    };
 

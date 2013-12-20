@@ -33,7 +33,16 @@ public class RegionRestController {
     Map<String, Object> uipRegion(@PathVariable("uip_center_code") String uip_center_code, @PathVariable("code") String code){
         Map<String, Object> list = new HashMap<String, Object>();
         Region region = regionsDAO.getByCode(uip_center_code, code);
-        list.put("uip_region", region);
+        list.put("uip_regions", region);
+        return list;
+    }
+    
+    @RequestMapping(value = "/uip_regions/{uip_center_code}", method = RequestMethod.GET)
+    public @ResponseBody
+    Map<String, Object> uipRegion2(@PathVariable("uip_center_code") String uip_center_code){
+        Map<String, Object> list = new HashMap<String, Object>();
+        List<Region> regions = regionsDAO.getByCode2(uip_center_code);
+        list.put("uip_regions", regions);
         return list;
     }
     
@@ -51,7 +60,7 @@ public class RegionRestController {
     Map<String, Object> save(@RequestBody Region region){
         Map<String, Object> data = new HashMap<String, Object>();
         regionsDAO.save(region);
-        data.put("uip_region", region);
+        data.put("uip_regions", region);
         return data;
     }
 
@@ -60,7 +69,7 @@ public class RegionRestController {
     Map<String, Object> update(@PathVariable("uip_center_id") int uipCenterId, @PathVariable("id") int id, @RequestBody Region region){
         Map<String, Object> list = new HashMap<String, Object>();
         region = regionsDAO.update(region);
-        list.put("uip_region", region);
+        list.put("uip_regions", region);
         return list;
     }
 

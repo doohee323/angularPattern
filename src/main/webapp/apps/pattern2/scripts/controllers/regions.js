@@ -22,14 +22,13 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $timeou
     
 	$scope.$watch('uip_region', function(){
 		if($scope.gridInit && !$scope['gridRegion']) {
-			debugger;
-		    var params = {uip_center_id: $stateParams.id};
-		    $scope.gridInit(RegionService, columnDefs, params);
-		    $scope.getDatas();
+		    var params = {uip_center_code: $stateParams.id};
+		    $scope.gridInit(RegionService, columnDefs);
+		    $scope.getDatas(params);
 		}
 	}, true);
 
-    $scope.goHomeData = function () {
+    $scope.goCenterData = function () {
         $state.go('default.centers');
     }
   });
