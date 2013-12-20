@@ -1,32 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:javaee="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" id="WebApp_ID" version="2.4">
-  <javaee:display-name>Spring Web MVC Application</javaee:display-name>
-  <listener>
-    <javaee:listener-class>org.springframework.web.context.ContextLoaderListener</javaee:listener-class>
-  </listener>
-  <context-param>
-    <javaee:param-name>contextConfigLocation</javaee:param-name>
-    <javaee:param-value>classpath:context-*.xml</javaee:param-value>
-  </context-param>
-  <filter>
-    <filter-name>cors</filter-name>
-    <filter-class>com.tz.filter.CorsFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>cors</filter-name> 
-    <url-pattern>/rest/*</url-pattern> 
-  </filter-mapping>
-  <servlet>
-    <servlet-name>restful</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-    <init-param>
-      <javaee:param-name>contextConfigLocation</javaee:param-name>
-      <javaee:param-value>/WEB-INF/restful-servlet.xml</javaee:param-value>
-    </init-param>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>restful</servlet-name>
-    <url-pattern>/rest/*</url-pattern>
-  </servlet-mapping>
+<web-app id="WebApp_ID" version="2.4"
+	xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+
+	<display-name>Spring Web MVC Application</display-name>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:context-*.xml</param-value>
+	</context-param>
+
+	<filter>
+		<filter-name>cors</filter-name>
+		<filter-class>com.tz.filter.CorsFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>cors</filter-name>
+		<url-pattern>/rest/*</url-pattern>
+	</filter-mapping>
+
+	<servlet>
+		<servlet-name>restful</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/restful-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>restful</servlet-name>
+		<url-pattern>/rest/*</url-pattern>
+	</servlet-mapping>
 </web-app>
