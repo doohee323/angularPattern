@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $timeout, $state, config, RegionService) {
+app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $timeout, $state, config, RegionService, MessageCtrl) {
 	$scope.$location = $location;
 
     $scope.cellValue;
@@ -22,6 +22,7 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $timeou
     
 	$scope.$watch('uip_region', function(){
 		if($scope.gridInit && !$scope['gridRegion']) {
+			debugger;
 		    var params = {uip_center_id: $stateParams.id};
 		    $scope.gridInit(RegionService, columnDefs, params);
 		    $scope.getDatas();
@@ -29,21 +30,6 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $timeou
 	}, true);
 
     $scope.goHomeData = function () {
-        var path = '/centers';
         $state.go('default.centers');
-        //$location.path( path );
     }
-    
-	$scope.$on('$viewContentLoading', function(event,
-			viewConfig) {
-		//debugger;
-		// Access to all the view config properties.
-		// and one special property 'targetView'
-		// viewConfig.targetView
-	});
-
-	$scope.$on('$viewContentLoaded', function(event) {
-		//debugger;
-	});
-    
   });

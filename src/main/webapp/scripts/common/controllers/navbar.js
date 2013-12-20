@@ -6,17 +6,14 @@ app.controller('NavbarCtrl', function ($scope, $location, $state) {
     
     $state.go('default.centers');
 	
-    $scope.goTo = function ( baseUrl, row ) {
-    	var path = baseUrl;
-    	if(baseUrl == '/') {
-    	} else if(row) { // go to regions
-    		//path += row.entity.id;
-    		$state.go('default.regions', {id: row.entity.id});
+    $scope.goTo = function ( path, row ) {
+    	if(path == '/') {
+    	} else if(row) { 
+    		$state.go('default.' + path, {id: row.entity.code});
     	} else if($scope.uip_center[0]) { // go to centers
     		//path += $scope.uip_center[0].id;
     		$state.go('default.centers');
     	}
-        // if(uip_center) config.centers = uip_center;
 	}	
 
     $scope.goLocation = function ( path ) {

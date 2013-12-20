@@ -14,15 +14,15 @@ angular.module('sheepwebApp')
 		},
 		{
 			name : 'P2 Multi Detail (Edit)',
-			image : 'images/3.png',
+			image : 'images/2.png',
 			desc : 'Retrieve list and perform CRUD actions for multi-rows on a screen.',
 			sample : 'apps/pattern2/index.html'
 		},
 		{
 			name : 'P3 Multi Detail (List to Edit)',
-			image : 'images/2.png',
+			image : 'images/3.png',
 			desc : 'Retrieve list and perform CRUD actions for 1 row using by two screens.',
-			sample : '/'
+			sample : 'apps/pattern3/index.html'
 		},
 		{
 			name : 'P4 Master / Detail [1:n]',
