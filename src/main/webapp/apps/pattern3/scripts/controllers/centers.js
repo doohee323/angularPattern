@@ -23,15 +23,24 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $timeou
                  {field:'phone', displayName:'phone', enableCellEdit: false}
                  ];
     
+	MessageCtrl.init($scope);
+	
 	$scope.$watch('uip_center', function(){
 		if($scope.gridInit && !$scope['gridCenter']) {
 		    $scope.gridInit(CenterService, columnDefs);
-		    $scope.getDatas();
+		    $scope.getDatas(null, function (data){
+	    		$scope.alert(data.uip_centers);
+			});
 		}
 	}, true);
 	
-    MessageCtrl.init($scope);
-    
+    $scope.searchData = function () {
+    	$scope.alerts = [];
+    	$scope.retrieveData({code : $scope.queryCode}, function (data){
+    		$scope.alert(data.uip_centers);
+		});
+    };
+	
     $scope.retrieveData = function () {
     	$scope.alerts = [];
     	CenterService.get({code : $scope.queryCode}, function(data) {
