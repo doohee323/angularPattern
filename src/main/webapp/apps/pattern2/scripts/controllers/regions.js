@@ -20,6 +20,8 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $timeou
 		        {field:'address', displayName:'address', editableCellTemplate: cellEditableTemplate}
                  ];
     
+    MessageCtrl.init($scope);
+    
 	$scope.$watch('uip_region', function(){
 		if($scope.gridInit && !$scope['gridRegion']) {
 			$scope.uip_center = config.uip_center;
@@ -30,17 +32,28 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $timeou
 			
 		    var params = {uip_center_code: $stateParams.id};
 		    $scope.gridInit(RegionService, columnDefs);
-		    $scope.getDatas(params);
+		    $scope.getDatas(params, function (data){
+	    		$scope.alert(data.uip_regions);
+			});
 		}
 	}, true);
 
+    $scope.searchData = function () {
+    	$scope.alerts = [];
+    	$scope.retrieveData({uip_center_code: $scope.queryCenterCode, code: $scope.queryCode}, function (data){
+    		$scope.alert(data.uip_regions);
+		});
+    };	
+	
     $scope.goCenterData = function () {
         $state.go('default.centers');
     }
     
     $scope.getRegions = function (code) {
 	    var params = {uip_center_code: code, code: $scope.queryCode};
-    	$scope.getDatas(params);
+    	$scope.getDatas(params, function (data){
+    		$scope.alert(data.uip_regions);
+		});
     }
     
   });

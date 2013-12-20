@@ -10,7 +10,7 @@
 		    <label class="col-sm-2" for="center_id">Center Code</label>
 			<div class="col-sm-3">
 				<select ng-model="queryCenterCode" ng-change="getRegions(queryCenterCode)">
-			        <option value="">Select</option>
+<!-- 			        <option value="">Select</option> -->
 			        <option ng-repeat="obj in uip_center | orderBy:reverse" value="{{obj.code}}" ng-selected="obj.id">{{obj.name}}</option>
 			    </select>
 				<span class="error" ng-show="myForm.queryCenterCode.$error.required">
@@ -22,7 +22,7 @@
 				<input type="text" class="form-control" name="queryCode" ng-model="queryCode" placeholder="Enter Code">
 			</div>
 			<div class="col-sm-2">
-				<commbutton type="retrieve" data="Region"></commbutton>
+				<commbutton type="search" data="Region"></commbutton>
 			</div>
 		  </div>
 		</form>
@@ -32,12 +32,15 @@
               <ng-excel id="gridRegion" data="uip_region" rows="100" cols="100" width="100%" height="200"></ng-excel>
             </div>
             <div class="span5">
-                <commbutton type="retrieve" data="Region"></commbutton>
                 <commbutton type="insert" data="Region"></commbutton>
                 <commbutton type="delete" data="Region"></commbutton>
                 <commbutton type="save" data="Region"></commbutton>
                 <commbutton type="init" data="Region"></commbutton>
                 <commbutton type="goCenter" data="Region"></commbutton>
+		        <div>
+			        <br>
+					<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+				</div>
             </div>
         </div>
 	</div>

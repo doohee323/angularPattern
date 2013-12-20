@@ -69,7 +69,9 @@ app.directive('ngExcel', function($compile, $timeout, config){
 	        };
 		}, true);
 
-		scope.getDatas = function(input) {
+		scope.getDatas = function(input, callback) {
+			scope[_dataset] = [];
+			scope.callback = callback;
 	    	var params = {};
 	    	if(input) params = input;
 	    	_service.get(params, function(data) {
@@ -79,21 +81,22 @@ app.directive('ngExcel', function($compile, $timeout, config){
 			                data[_datasets][i].status = 'R';
 			            };
 			            scope[_dataset] = data[_datasets];
-	    			} else if(data[_datasets].length > 0){
+	    			} else if(data[_datasets].id){
 			            data[_datasets].status = 'R';
 			            var list = [];
 			            list[0] = data[_datasets];
 			            scope[_dataset] = list;
 	    			}
-	    		} else {
-	    			// no data
+	    		}
+	    		if(scope.callback) {
+	    			scope.callback(data);
 	    		}
 	        });
 	    };
 
-	    scope.retrieveData = function (input) {
+	    scope.retrieveData = function (input, callback) {
 	    	if(_input) input = _input;
-	    	scope.getDatas(input);
+	    	scope.getDatas(input, callback);
 	    };
 
 	    scope.insertData = function () {

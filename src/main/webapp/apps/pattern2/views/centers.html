@@ -27,6 +27,10 @@
                 <commbutton type="save" data="Center" dataset="uip_center"></commbutton>
                 <commbutton type="init" data="Center"></commbutton>
 		        <commbutton type="goHome" data="Center"></commbutton>
+		        <div>
+			        <br>
+					<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+				</div>
             </div>
         </div>
     </div>

@@ -21,20 +21,22 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $timeou
                  {field:'phone', displayName:'phone', editableCellTemplate: cellEditableTemplate}
                  ];
     
+	MessageCtrl.init($scope);
+	
 	$scope.$watch('uip_center', function(){
 		if($scope.gridInit && !$scope['gridCenter']) {
 		    $scope.gridInit(CenterService, columnDefs);
-		    $scope.getDatas();
+		    $scope.getDatas(null, function (data){
+	    		$scope.alert(data.uip_centers);
+			});
 		}
 	}, true);
 	
     $scope.searchData = function () {
     	$scope.alerts = [];
-    	$scope.retrieveData({code : $scope.queryCode});
-//    	CenterService.get({code : $scope.queryCode}, function(data) {
-//    	 	$scope.uip_centers = data.uip_centers;
-//    	 	//$scope.alert(data.uip_centers);
-//    	});
+    	$scope.retrieveData({code : $scope.queryCode}, function (data){
+    		$scope.alert(data.uip_centers);
+		});
     };
 	
     $scope.goHomeData = function () {
