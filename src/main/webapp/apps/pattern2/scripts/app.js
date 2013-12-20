@@ -6,7 +6,7 @@ var config = {
 	url : 'http://localhost\\:8080/rest',
 	// url : '/pattern/pt42/masterdetail',
 	server : 'spring', // spring, rails,
-	centers : {}
+	uip_center : {}
 };
 
 var app = angular.module('sheepwebApp',

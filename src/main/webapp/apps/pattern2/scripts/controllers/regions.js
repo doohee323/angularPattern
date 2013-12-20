@@ -22,6 +22,12 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $timeou
     
 	$scope.$watch('uip_region', function(){
 		if($scope.gridInit && !$scope['gridRegion']) {
+			$scope.uip_center = config.uip_center;
+			
+	        $timeout(function() {
+	        	$scope.queryCenterCode = $stateParams.id;
+	        }, 500);
+			
 		    var params = {uip_center_code: $stateParams.id};
 		    $scope.gridInit(RegionService, columnDefs);
 		    $scope.getDatas(params);
@@ -31,4 +37,10 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $timeou
     $scope.goCenterData = function () {
         $state.go('default.centers');
     }
+    
+    $scope.getRegions = function (code) {
+	    var params = {uip_center_code: code, code: $scope.queryCode};
+    	$scope.getDatas(params);
+    }
+    
   });

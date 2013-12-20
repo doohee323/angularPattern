@@ -5,10 +5,29 @@
 	        <h2>Regions (Detail table)</h2>
 	    </div>        
 
+		<form class="form-horizontal" role="form" name="myForm">
+		  <div class='panel-heading' style='height:55px' >
+		    <label class="col-sm-2" for="center_id">Center Code</label>
+			<div class="col-sm-3">
+				<select ng-model="queryCenterCode" ng-change="getRegions(queryCenterCode)">
+			        <option value="">Select</option>
+			        <option ng-repeat="obj in uip_center | orderBy:reverse" value="{{obj.code}}" ng-selected="obj.id">{{obj.name}}</option>
+			    </select>
+				<span class="error" ng-show="myForm.queryCenterCode.$error.required">
+					<div class="alert alert-warning">Required!</div>
+				</span>
+			</div>
+		    <label class="col-sm-2" for="queryCode">Region Code</label>
+			<div class="col-sm-3">
+				<input type="text" class="form-control" name="queryCode" ng-model="queryCode" placeholder="Enter Code">
+			</div>
+			<div class="col-sm-2">
+				<commbutton type="retrieve" data="Region"></commbutton>
+			</div>
+		  </div>
+		</form>
+
         <div>
-           <h4>centers : 
-            <select ng-model="uip_center" ng-selected="center_id" ng-change="getRegions()" ng-options="uip_center.name for uip_center in uip_center | orderBy:orderby:reverse"></select>
-           </h4>
             <div class="ngGrid" >
               <ng-excel id="gridRegion" data="uip_region" rows="100" cols="100" width="100%" height="200"></ng-excel>
             </div>
