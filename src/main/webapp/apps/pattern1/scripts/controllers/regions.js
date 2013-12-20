@@ -54,7 +54,7 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $state,
     	$scope.uip_region = {};
     }
 
-    $scope.goHomeData = function () {
+    $scope.goCenterData = function () {
         $state.go('default.centers');
 	}
 });

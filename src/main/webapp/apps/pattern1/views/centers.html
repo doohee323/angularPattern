@@ -6,23 +6,20 @@
     </div>
     
 	<form class="form-horizontal" role="form" name="myForm">
-		<div class="panel panel-default">
-		  <div class="panel-body">
-		    <label class="col-sm-2" for="queryCode">Center Code</label>
+		<div class='panel-heading' style='height:55px' >
+			<label class="col-sm-2" for="queryCode">Center Code</label>
 			<div class="col-sm-8">
 				<input type="text" class="form-control" name="queryCode" ng-model="queryCode" placeholder="Enter Code" required>
 				<span class="error" ng-show="myForm.queryCode.$error.required">
 					<div class="alert alert-warning">Required!</div>
 				</span>
-				<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
 			</div>
 			<div class="col-sm-2">
 				<commbutton type="retrieve" data="Center"></commbutton>
 			</div>
-		  </div>
 		</div>
 	</form>
-    
+    	
 	<form role="form">
 	  <div class="form-group">
 	    <div class="col-xs-6">
@@ -55,7 +52,11 @@
 	        <commbutton type="delete" data="Center"></commbutton>
 	        <commbutton type="init" data="Center"></commbutton>
 	        <commbutton type="goHome" data="Center"></commbutton>
+	        <commbutton type="goRegion" data="Region"></commbutton>
+	        <div>
+		        <br>
+				<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+			</div>
 		</div>
 	  </div>
 	</form>
-

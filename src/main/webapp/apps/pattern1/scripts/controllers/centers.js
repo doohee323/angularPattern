@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('CentersCtrl', function ($scope, $location, $stateParams, CenterService, MessageCtrl) {
+app.controller('CentersCtrl', function ($scope, $location, $stateParams, $state, CenterService, MessageCtrl) {
 	$scope.$location = $location;
     $scope.uip_center = {};
     
@@ -51,6 +51,10 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, CenterS
     
     $scope.goHomeData = function () {
     	document.location = '/';
+	}
+    
+    $scope.goRegionData = function () {
+    	$state.go('default.regions');
 	}
     
   });

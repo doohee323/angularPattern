@@ -6,28 +6,25 @@
     </div>
     
 	<form class="form-horizontal" role="form" name="myForm">
-		<div class="panel panel-default">
-		  <div class="panel-body">
-		    <label class="col-sm-1" for="queryCenterCode">Center Code</label>
-			<div class="col-sm-4">
-				<input type="text" class="form-control" name="queryCenterCode" ng-model="queryCenterCode" placeholder="Enter Center Code" required>
-				<span class="error" ng-show="myForm.queryCenterCode.$error.required">
-					<div class="alert alert-warning">Required!</div>
-				</span>
-			</div>
-		    <label class="col-sm-1" for="queryCode">Region Code</label>
-			<div class="col-sm-4">
-				<input type="text" class="form-control" name="queryCode" ng-model="queryCode" placeholder="Enter Code" required>
-				<span class="error" ng-show="myForm.queryCode.$error.required">
-					<div class="alert alert-warning">Required!</div>
-				</span>
-				<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
-			</div>
-			<div class="col-sm-2">
-				<commbutton type="retrieve" data="Region"></commbutton>
-			</div>
-		  </div>
+	  <div class='panel-heading' style='height:55px' >
+	    <label class="col-sm-2" for="queryCenterCode">Center Code</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" name="queryCenterCode" ng-model="queryCenterCode" placeholder="Enter Center Code" required>
+			<span class="error" ng-show="myForm.queryCenterCode.$error.required">
+				<div class="alert alert-warning">Required!</div>
+			</span>
 		</div>
+	    <label class="col-sm-2" for="queryCode">Region Code</label>
+		<div class="col-sm-3">
+			<input type="text" class="form-control" name="queryCode" ng-model="queryCode" placeholder="Enter Code" required>
+			<span class="error" ng-show="myForm.queryCode.$error.required">
+				<div class="alert alert-warning">Required!</div>
+			</span>
+		</div>
+		<div class="col-sm-2">
+			<commbutton type="retrieve" data="Region"></commbutton>
+		</div>
+	  </div>
 	</form>
 	
 	<form role="form">
@@ -65,8 +62,13 @@
 	        <commbutton type="save" data="Region" dataset="uip_region"></commbutton>
 	        <commbutton type="delete" data="Region"></commbutton>
 	        <commbutton type="init" data="Region"></commbutton>
-	        <commbutton type="goHome" data="Region"></commbutton>
+	        <commbutton type="goCenter" data="Region"></commbutton>
+	        <div>
+		        <br>
+				<alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+			</div>
 		</div>
 	  </div>
 	</form>	
+	
 	
