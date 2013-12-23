@@ -12,7 +12,7 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $state,
     
     $scope.retrieveData = function () {
     	$scope.alerts = [];
-    	CenterService.get({code : $scope.queryCode}, function(data) {
+    	CenterService.get({queryCode : $scope.queryCode}, function(data) {
     	 	$scope.uip_center = data.uip_centers;
     	 	$scope.alert(data.uip_centers);
     	});
