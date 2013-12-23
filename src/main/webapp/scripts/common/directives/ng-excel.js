@@ -140,6 +140,7 @@ app.directive('ngExcel', function($compile, $timeout, config){
 	    };
 
 	    scope.saveData = function () {
+	    	debugger;
 	        var dataset = scope[_dataset];
 	        for (var i = 0; i < dataset.length; i++) {
 	            var status = dataset[i].status;

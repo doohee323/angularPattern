@@ -34,7 +34,7 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $timeou
 	
     $scope.searchData = function () {
     	$scope.alerts = [];
-    	$scope.retrieveData({code : $scope.queryCode}, function (data){
+    	$scope.retrieveData({queryCode : $scope.queryCode}, function (data){
     		$scope.alert(data.uip_centers);
 		});
     };

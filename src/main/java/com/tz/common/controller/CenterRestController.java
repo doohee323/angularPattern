@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.tz.common.dao.CentersDAO;
 import com.tz.common.model.Center;
 import com.tz.common.model.CenterFormValidator;
 import com.tz.common.service.CenterService;
@@ -33,16 +32,16 @@ public class CenterRestController {
     @Autowired
     private CenterFormValidator validator;
 
-    @RequestMapping(value = "/uip_centers/{code}", method = RequestMethod.GET)
+    @RequestMapping(value = "/uip_centers/{queryCode}", method = RequestMethod.GET)
     public @ResponseBody
-    Map<String, Object> uipCenter(@PathVariable("code") String code){
+    Map<String, Object> uipCenter(@PathVariable("queryCode") String code){
         Map<String, Object> list = new HashMap<String, Object>();
         Center center = centerService.getByCode(code);
         list.put("uip_centers", center);
         return list;
     }
     
-    @RequestMapping("/uip_centers")
+    @RequestMapping(value = "/uip_centers", method = RequestMethod.GET)
     public @ResponseBody
     Map<String, Object> uipCenters(){
         Map<String, Object> list = new HashMap<String, Object>();

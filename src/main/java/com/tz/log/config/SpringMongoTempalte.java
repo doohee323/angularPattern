@@ -13,11 +13,16 @@ public class SpringMongoTempalte {
 	private int port;
 	private String dbname;
 	
-    public @Bean MongoDbFactory mongoDbFactory() throws Exception{
-        return new SimpleMongoDbFactory(new MongoClient(host, port), dbname);
+    public @Bean MongoDbFactory mongoDbFactory() {
+        try {
+			return new SimpleMongoDbFactory(new MongoClient(host, port), dbname);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+        return null;
     }
 
-    public @Bean MongoTemplate mongoTemplate() throws Exception{
+    public @Bean MongoTemplate mongoTemplate() {
         MongoTemplate mongoTemplate = new MongoTemplate(mongoDbFactory());
         return mongoTemplate;
     }
