@@ -69,7 +69,7 @@ public class CenterService {
 		}
 	}
 
-	public int save(Center center) {
+	public Center save(Center center) {
 		logService.log(this, "debug", "save");
 		if (StringUtil.getText(appProperties.get("com.tz.db.type"))
 				.equals("mongodb")) {

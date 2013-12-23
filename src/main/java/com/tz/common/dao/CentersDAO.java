@@ -53,10 +53,13 @@ public class CentersDAO {
 		return criteria.list();
 	}
 
-	public int save(Center center) {
+	public Center save(Center center) {
 		logService.log(this, "debug", "getByCode");
-		
-		return (Integer) sessionFactory.getCurrentSession().save(center);
+		sessionFactory.getCurrentSession().save(center);
+		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
+				Center.class);
+		criteria.add(Restrictions.eq("code", center.getCode()));
+		return (Center)criteria.uniqueResult();
 	}
 
 	public Center update(Center center) {
