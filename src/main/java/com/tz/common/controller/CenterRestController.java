@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.tz.common.dao.CentersDAO;
 import com.tz.common.model.Center;
 import com.tz.common.model.CenterFormValidator;
+import com.tz.common.service.CenterService;
 
 /**
  * @author TZ
@@ -27,7 +28,7 @@ import com.tz.common.model.CenterFormValidator;
 public class CenterRestController {
 
     @Autowired
-    private CentersDAO centersDAO;
+    private CenterService centerService;
 
     @Autowired
     private CenterFormValidator validator;
@@ -36,7 +37,7 @@ public class CenterRestController {
     public @ResponseBody
     Map<String, Object> uipCenter(@PathVariable("code") String code){
         Map<String, Object> list = new HashMap<String, Object>();
-        Center center = centersDAO.getByCode(code);
+        Center center = centerService.getByCode(code);
         list.put("uip_centers", center);
         return list;
     }
@@ -45,7 +46,7 @@ public class CenterRestController {
     public @ResponseBody
     Map<String, Object> uipCenters(){
         Map<String, Object> list = new HashMap<String, Object>();
-        List<Center> centers = centersDAO.getAllCenters();
+        List<Center> centers = centerService.getAllCenters();
         list.put("uip_centers", centers);
         return list;
     }
@@ -54,7 +55,7 @@ public class CenterRestController {
     public @ResponseBody
     Map<String, Object> save(@RequestBody Center center){
         Map<String, Object> list = new HashMap<String, Object>();
-        centersDAO.save(center);
+        centerService.save(center);
         list.put("uip_centers", center);
         return list;
     }
@@ -63,7 +64,7 @@ public class CenterRestController {
     public @ResponseBody
     Map<String, Object> update(@PathVariable("id") int id, @RequestBody Center center){
         Map<String, Object> list = new HashMap<String, Object>();
-        center = centersDAO.update(center);
+        center = centerService.update(center);
         list.put("uip_centers", center);
         return list;
     }
@@ -71,6 +72,6 @@ public class CenterRestController {
     @RequestMapping(value = "/uip_centers/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable("id") int id){
-        centersDAO.delete(id);
+        centerService.delete(id);
     }
 }
