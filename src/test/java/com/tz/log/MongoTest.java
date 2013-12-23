@@ -10,6 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,6 +21,7 @@ import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import com.mongodb.ServerAddress;
+import com.tz.log.config.SpringMongoTempalte;
 import com.tz.log.domain.Log;
 import com.tz.test.TestSupport;
 
@@ -74,14 +78,12 @@ public class MongoTest extends TestSupport {
 					.append("count", 1)
 					.append("info",
 							new BasicDBObject("x", 203).append("y", 102));
-
 			userTable.insert(doc);
 
-			
-			DBCollection userTable2 = db.getCollection("logs");
+			ApplicationContext ctx = new AnnotationConfigApplicationContext(SpringMongoTempalte.class);
+			MongoOperations dao = (MongoOperations) ctx.getBean("mongoTemplate");
 			Log log = new Log(this, "info", "junit mongodb test");
-			BasicDBObject doc2 = new BasicDBObject("name", this);
-			userTable2.insert(doc2);
+			dao.save(log);
 			
 			mongoClient.close();
 		} catch (Exception e) {

@@ -14,6 +14,7 @@ import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Service;
 
 import com.tz.common.utils.StringUtil;
+import com.tz.log.config.SpringMongoTempalte;
 import com.tz.log.domain.Log;
 
 @Service("LogService")
@@ -26,8 +27,10 @@ public class LogService {
 	@Qualifier("appProperties")
 	private Properties appProperties;
 
-	@Autowired
 	private MongoOperations dao;
+	
+	@Autowired
+	private SpringMongoTempalte springMongo;
 
 	public void log(Object obj, String level, String message) {
 		try {
@@ -39,6 +42,8 @@ public class LogService {
 			Log log = new Log(obj, level, message);
 			logger(level, log);
 
+			dao = (MongoOperations) springMongo.mongoTemplate();
+			
 			dao.save(log);
 			Query searchLogQuery = new Query(Criteria.where("id").is(
 					log.getTime()));

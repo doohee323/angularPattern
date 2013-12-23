@@ -23,6 +23,7 @@
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Component" />
+<!--         <context:include-filter type="annotation" expression="org.springframework.context.annotation.Configuration" /> -->
     </context:component-scan>
 	
 	<mvc:annotation-driven /> 
@@ -66,10 +67,16 @@
 			p:username="${jdbc.username}"
 			p:password="${jdbc.password}"/>
 			
-	<mongo:mongo host="${com.tz.mongodb.host}" port="${com.tz.mongodb.port}" />
-	<mongo:db-factory dbname="${com.tz.mongodb.dbname}" />
+<!-- 	<mongo:mongo host="${com.tz.mongodb.host}" port="${com.tz.mongodb.port}" /> -->
+<!-- 	<mongo:db-factory dbname="${com.tz.mongodb.dbname}" /> -->
 
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
+	<bean id="springMongoTempalte" class="com.tz.log.config.SpringMongoTempalte">
+		<property name="host" value="${com.tz.mongodb.host}"></property>
+		<property name="port" value="${com.tz.mongodb.port}"></property>
+		<property name="dbname" value="${com.tz.mongodb.dbname}"></property>
+	</bean>
+
+	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate" depends-on="appProperties">
 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
 	</bean>    
 	
