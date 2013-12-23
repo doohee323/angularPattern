@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tz.common.model.Center;
+import com.tz.log.service.LogService;
 
 /**
  * @author TZ
@@ -21,7 +22,10 @@ public class CentersDAO {
 
 	@Autowired
 	private SessionFactory sessionFactory;
-
+	
+    @Autowired
+    private LogService logService;
+    
 	public Center getByCode(String code) {
 		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
 				Center.class);
@@ -50,6 +54,8 @@ public class CentersDAO {
 	}
 
 	public int save(Center center) {
+		logService.log(this, "debug", "getByCode");
+		
 		return (Integer) sessionFactory.getCurrentSession().save(center);
 	}
 

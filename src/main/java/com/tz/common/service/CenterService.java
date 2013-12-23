@@ -29,7 +29,6 @@ public class CenterService {
     private LogService logService;
     
 	public Center getByCode(String code) {
-		logService.log(this, "debug", "getByCode");
 		return centersDAO.getByCode(code);
 	}
 
@@ -42,18 +41,22 @@ public class CenterService {
 	}
 
 	public List<Center> getAllCenters() {
+		logService.log(this, "debug", "getAllCenters");
 		return centersDAO.getAllCenters();
 	}
 
 	public int save(Center center) {
+		logService.log(this, "debug", "save");
 		return centersDAO.save(center);
 	}
 
 	public Center update(Center center) {
+		logService.log(this, "debug", "update");
 		return centersDAO.update(center);
 	}
 
 	public void delete(int id) {
+		logService.log(this, "debug", "delete");
 		centersDAO.delete(id);
 	}
 

@@ -43,8 +43,8 @@ public class LogService {
 			logger(level, log);
 
 			dao = (MongoOperations) springMongo.mongoTemplate();
-			
 			dao.save(log);
+			
 			Query searchLogQuery = new Query(Criteria.where("id").is(
 					log.getTime()));
 			Log savedLog = dao.findOne(searchLogQuery, Log.class);
