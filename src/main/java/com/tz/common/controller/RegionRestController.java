@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import com.tz.common.dao.RegionsDAO;
 import com.tz.common.model.Region;
+import com.tz.common.service.RegionService;
 
 /**
  * @author TZ
@@ -26,31 +26,31 @@ import com.tz.common.model.Region;
 public class RegionRestController {
 
     @Autowired
-    private RegionsDAO regionsDAO;
-
-    @RequestMapping(value = "/uip_regions/{uip_center_code}/{code}", method = RequestMethod.GET)
+    private RegionService regionService;
+    
+    @RequestMapping(value = "/uip_regions/{queryCenterCode}/{queryCode}", method = RequestMethod.GET)
     public @ResponseBody
-    Map<String, Object> uipRegion(@PathVariable("uip_center_code") String uip_center_code, @PathVariable("code") String code){
+    Map<String, Object> uipRegion(@PathVariable("queryCenterCode") String uipCenterCode, @PathVariable("queryCode") String code){
         Map<String, Object> list = new HashMap<String, Object>();
-        Region region = regionsDAO.getByCode(uip_center_code, code);
+        Region region = regionService.getByCode(uipCenterCode, code);
         list.put("uip_regions", region);
         return list;
     }
     
-    @RequestMapping(value = "/uip_regions/{uip_center_code}", method = RequestMethod.GET)
+    @RequestMapping(value = "/uip_regions/{queryCenterCode}", method = RequestMethod.GET)
     public @ResponseBody
-    Map<String, Object> uipRegion2(@PathVariable("uip_center_code") String uip_center_code){
+    Map<String, Object> uipRegion2(@PathVariable("queryCenterCode") String uipCenterCode){
         Map<String, Object> list = new HashMap<String, Object>();
-        List<Region> regions = regionsDAO.getByCode2(uip_center_code);
+        List<Region> regions = regionService.getByCode2(uipCenterCode);
         list.put("uip_regions", regions);
         return list;
     }
     
-    @RequestMapping("/uip_regions")
+    @RequestMapping(value = "/uip_regions", method = RequestMethod.GET)
     public @ResponseBody
-    Map<String, Object> uipRegions(){
+    Map<String, Object> getAllRegions(){
         Map<String, Object> list = new HashMap<String, Object>();
-        List<Region> regions = regionsDAO.getAllRegions();
+        List<Region> regions = regionService.getAllRegions();
         list.put("uip_regions", regions);
         return list;
     }
@@ -59,7 +59,7 @@ public class RegionRestController {
     public @ResponseBody
     Map<String, Object> save(@RequestBody Region region){
         Map<String, Object> data = new HashMap<String, Object>();
-        regionsDAO.save(region);
+        regionService.save(region);
         data.put("uip_regions", region);
         return data;
     }
@@ -67,15 +67,15 @@ public class RegionRestController {
     @RequestMapping(value = "/uip_regions/{uip_center_id}/{id}", method = RequestMethod.PUT)
     public @ResponseBody
     Map<String, Object> update(@PathVariable("uip_center_id") int uipCenterId, @PathVariable("id") int id, @RequestBody Region region){
-        Map<String, Object> list = new HashMap<String, Object>();
-        region = regionsDAO.update(region);
-        list.put("uip_regions", region);
-        return list;
+        Map<String, Object> data = new HashMap<String, Object>();
+        region = regionService.update(region);
+        data.put("uip_regions", region);
+        return data;
     }
 
     @RequestMapping(value = "/uip_regions/{uip_center_id}/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void delete(@PathVariable("uip_center_id") int uipCenterId, @PathVariable("id") int id){
-        regionsDAO.delete(uipCenterId, id);
+        regionService.delete(uipCenterId, id);
     }
 }

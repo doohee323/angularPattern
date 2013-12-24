@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.tz.common.model.Center;
-import com.tz.common.model.CenterFormValidator;
 import com.tz.common.service.CenterService;
 
 /**
@@ -29,9 +28,6 @@ public class CenterRestController {
     @Autowired
     private CenterService centerService;
 
-    @Autowired
-    private CenterFormValidator validator;
-
     @RequestMapping(value = "/uip_centers/{queryCode}", method = RequestMethod.GET)
     public @ResponseBody
     Map<String, Object> uipCenter(@PathVariable("queryCode") String code){
@@ -40,7 +36,7 @@ public class CenterRestController {
         list.put("uip_centers", center);
         return list;
     }
-    
+
     @RequestMapping(value = "/uip_centers", method = RequestMethod.GET)
     public @ResponseBody
     Map<String, Object> getAllCenters(){
@@ -53,19 +49,19 @@ public class CenterRestController {
     @RequestMapping(value = "/uip_centers", method = RequestMethod.POST)
     public @ResponseBody
     Map<String, Object> save(@RequestBody Center center){
-        Map<String, Object> list = new HashMap<String, Object>();
+        Map<String, Object> data = new HashMap<String, Object>();
         Center centers = centerService.save(center);
-        list.put("uip_centers", centers);
-        return list;
+        data.put("uip_centers", centers);
+        return data;
     }
 
     @RequestMapping(value = "/uip_centers/{id}", method = RequestMethod.PUT)
     public @ResponseBody
     Map<String, Object> update(@PathVariable("id") int id, @RequestBody Center center){
-        Map<String, Object> list = new HashMap<String, Object>();
+        Map<String, Object> data = new HashMap<String, Object>();
         center = centerService.update(center);
-        list.put("uip_centers", center);
-        return list;
+        data.put("uip_centers", center);
+        return data;
     }
 
     @RequestMapping(value = "/uip_centers/{id}", method = RequestMethod.DELETE)

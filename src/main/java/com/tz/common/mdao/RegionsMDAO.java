@@ -2,14 +2,16 @@ package com.tz.common.mdao;
 
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoOperations;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.tz.common.model.Region;
+import com.tz.common.utils.MongodbUtil;
+import com.tz.log.config.SpringMongoTempalte;
 
 /**
  * @author TZ
@@ -19,64 +21,60 @@ import com.tz.common.model.Region;
 @Transactional
 public class RegionsMDAO {
 
-	@Autowired
-	private CentersMDAO centersDAO;
+    @Autowired
+    private CentersMDAO centersDAO;
 
-	@Autowired
-	private SessionFactory sessionFactory;
+    @Autowired
+    private SpringMongoTempalte springMongo;
 
-	public Region getByCode(String uipCenterCode, String code) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
-				Region.class);
-		int uip_center_id = centersDAO.getByCode(uipCenterCode).getId();
-		criteria.add(Restrictions.eq("uip_center_id", uip_center_id));
-		criteria.add(Restrictions.eq("code", code));
-		return (Region)criteria.uniqueResult();
-	}
-	
-	@SuppressWarnings("unchecked")
-	public List<Region> getByCode2(String uipCenterCode) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
-				Region.class);
-		int uip_center_id = centersDAO.getByCode(uipCenterCode).getId();
-		criteria.add(Restrictions.eq("uip_center_id", uip_center_id));
-		return criteria.list();
-	}
-	
-	public Region getById(int uipCenterId, int id) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
-				Region.class);
-		criteria.add(Restrictions.eq("uip_center_id", uipCenterId));
-		criteria.add(Restrictions.eq("id", id));
-		return (Region)criteria.uniqueResult();
-	}
+    private MongoOperations dao;
 
-	@SuppressWarnings("unchecked")
-	public List<Region> searchRegions(String name) {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
-				Region.class);
-		criteria.add(Restrictions.ilike("name", name + "%"));
-		return criteria.list();
-	}
+    public Region getByCode(String uipCenterCode, String code){
+        dao = (MongoOperations)springMongo.mongoTemplate();
+        int uipCenterId = centersDAO.getByCode(uipCenterCode).getId();
+        return dao.findOne(new Query(Criteria.where("uip_center_id").is(uipCenterId).and("code").is(code)),
+                Region.class, "uip_regions");
+    }
 
-	@SuppressWarnings("unchecked")
-	public List<Region> getAllRegions() {
-		Criteria criteria = sessionFactory.getCurrentSession().createCriteria(
-				Region.class);
-		return criteria.list();
-	}
+    public List<Region> getByCode2(String uipCenterCode){
+        dao = (MongoOperations)springMongo.mongoTemplate();
+        int uipCenterId = centersDAO.getByCode(uipCenterCode).getId();
+        return dao.find(new Query(Criteria.where("uip_center_id").is(uipCenterId)), Region.class, "uip_regions");
+    }
 
-	public int save(Region region) {
-		return (Integer) sessionFactory.getCurrentSession().save(region);
-	}
+    public Region getById(int uipCenterId, int id){
+        dao = (MongoOperations)springMongo.mongoTemplate();
+        return dao.findOne(new Query(Criteria.where("uip_center_id").is(uipCenterId).and("_id").is(id)), Region.class,
+                "uip_regions");
+    }
 
-	public Region update(Region region) {
-		return (Region)sessionFactory.getCurrentSession().merge(region);
-	}
+    public List<Region> searchRegions(String name){
+        dao = (MongoOperations)springMongo.mongoTemplate();
+        return dao.find(new Query(Criteria.where("name").regex(name + "*")), Region.class, "uip_regions");
+    }
 
-	public void delete(int uipCenterId, int id) {
-		Region c = getById(uipCenterId, id);
-		sessionFactory.getCurrentSession().delete(c);
-	}
+    public List<Region> getAllRegions(){
+        dao = (MongoOperations)springMongo.mongoTemplate();
+        return dao.findAll(Region.class, "uip_regions");
+    }
+
+    public Region save(Region region){
+        dao = (MongoOperations)springMongo.mongoTemplate();
+        region.setId(MongodbUtil.getNextId(dao, "uip_regions"));
+        dao.save(region, "uip_regions");
+        return region;
+    }
+
+    public Region update(Region region){
+        dao = (MongoOperations)springMongo.mongoTemplate();
+        dao.updateFirst(new Query(Criteria.where("_id").is(region.getId())), MongodbUtil.setUpdate(region),
+                "uip_regions");
+        return region;
+    }
+
+    public void delete(int uipCenterId, int id){
+        dao = (MongoOperations)springMongo.mongoTemplate();
+        dao.remove(new Query(Criteria.where("_id").is(id)), "uip_regions");
+    }
 
 }
