@@ -11,52 +11,44 @@ SAHM Stack
 web app with angular.js, bootstrap and Spring restful
 
 This is made with these traits.
+	
+	0. purpose : UI patten driven development support for angular.js application
+	1. support UI pattern
+	
+	# 1-1. P1 Single Detail,
+	  - image : images/1.png,
+	  - desc : Perform on a screen for CRUD actions.,
+	  - sample : apps/pattern1/index.html
+	
+	# 1-2. P2 Multi Detail (Edit),
+	  - image : images/2.png,
+	  - desc : Retrieve list and perform CRUD actions for multi-rows on a screen.,
+	  - sample : apps/pattern2/index.html
+	
+	# 1-3. P3 Multi Detail (List to Edit),
+	  - image : images/3.png,
+	  - desc : Retrieve list and perform CRUD actions for 1 row using by two screens.,
+	  - sample : apps/pattern3/index.html
+	
+	# 1-4. P4 Master / Detail [1:n],
+	  - image : images/4.png,
+	  - desc : Retrieve single master data and perform CRUD actions for multi detail data on a screen.,
+	  - sample : apps/pattern4/index.html
+	
+	# 1-5. P5 Master / Detail [n:1]</h4>,
+	  - image : images/5.png,
+	  - desc : Retrieve multi master data and perform CRUD actions for sigle detail data on a screen.,
+	  - sample : /
+	
+	# 1-6. P6 Master / Detail [n:n],
+	  - image : images/6.png,
+	  - desc : Retrieve multi master data and perform CRUD actions for multi detail data on a screen.,
+	  - sample : /
 
-0. purpose : UI patten driven development support for angular.js application
-1. support UI pattern
-
-$scope.patterns = [
-	{
-		name : 'P1 Single Detail',
-		image : 'images/1.png',
-		desc : 'Perform on a screen for CRUD actions.',
-		sample : 'apps/pattern1/index.html'
-	},
-	{
-		name : 'P2 Multi Detail (Edit)',
-		image : 'images/2.png',
-		desc : 'Retrieve list and perform CRUD actions for multi-rows on a screen.',
-		sample : 'apps/pattern2/index.html'
-	},
-	{
-		name : 'P3 Multi Detail (List to Edit)',
-		image : 'images/3.png',
-		desc : 'Retrieve list and perform CRUD actions for 1 row using by two screens.',
-		sample : 'apps/pattern3/index.html'
-	},
-	{
-		name : 'P4 Master / Detail [1:n]',
-		image : 'images/4.png',
-		desc : 'Retrieve single master data and perform CRUD actions for multi detail data on a screen.',
-		sample : 'apps/pattern4/index.html'
-	},
-	{
-		name : 'P5 Master / Detail [n:1]</h4>',
-		image : 'images/5.png',
-		desc : 'Retrieve multi master data and perform CRUD actions for sigle detail data on a screen.',
-		sample : '/'
-	},
-	{
-		name : 'P6 Master / Detail [n:n]',
-		image : 'images/6.png',
-		desc : 'Retrieve multi master data and perform CRUD actions for multi detail data on a screen.',
-		sample : '/'
-	} ];
-
-# 0. switching database
-/angularPattern/src/main/resources/environment-config.properties
-
-# hibernate,mongodb
-com.tz.db.type=hibernate
-
+	2. switching database
+	/angularPattern/src/main/resources/environment-config.properties
+	
+	3. hibernate,mongodb
+	com.tz.db.type=hibernate
+	
 
