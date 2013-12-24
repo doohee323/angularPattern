@@ -1,12 +1,12 @@
 angularPattern
 =========
 
-Spring (Spring MVC, Spring Data)
-Angular.js 
-Hibernate (Oracle)
-MongoDb
+# Spring (Spring MVC, Spring Data)
+# Angular.js 
+# Hibernate (Oracle)
+# MongoDb
 
-SAHM Stack
+=> SAHM Stack
 
 web app with angular.js, bootstrap and Spring restful
 
