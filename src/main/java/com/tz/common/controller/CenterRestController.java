@@ -43,7 +43,7 @@ public class CenterRestController {
     
     @RequestMapping(value = "/uip_centers", method = RequestMethod.GET)
     public @ResponseBody
-    Map<String, Object> uipCenters(){
+    Map<String, Object> getAllCenters(){
         Map<String, Object> list = new HashMap<String, Object>();
         List<Center> centers = centerService.getAllCenters();
         list.put("uip_centers", centers);
@@ -54,8 +54,8 @@ public class CenterRestController {
     public @ResponseBody
     Map<String, Object> save(@RequestBody Center center){
         Map<String, Object> list = new HashMap<String, Object>();
-        centerService.save(center);
-        list.put("uip_centers", center);
+        Center centers = centerService.save(center);
+        list.put("uip_centers", centers);
         return list;
     }
 

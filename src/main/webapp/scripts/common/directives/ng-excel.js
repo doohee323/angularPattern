@@ -74,7 +74,7 @@ app.directive('ngExcel', function($compile, $timeout, config){
 			scope.callback = callback;
 	    	var params = {};
 	    	if(input) params = input;
-	    	_service.get(params, function(data) {
+	    	_service.R.get(params, function(data) {
 	    		if(data[_datasets]) {
 	    			if(data[_datasets].length) {
 			            for (var i = 0; i < data[_datasets].length; i++) {
@@ -140,7 +140,6 @@ app.directive('ngExcel', function($compile, $timeout, config){
 	    };
 
 	    scope.saveData = function () {
-	    	debugger;
 	        var dataset = angular.copy(scope[_dataset]);
 	        for (var i = 0; i < dataset.length; i++) {
 	            var status = dataset[i].status;
@@ -150,19 +149,19 @@ app.directive('ngExcel', function($compile, $timeout, config){
 	            if(status == 'I') {
 	                params[_dataset] = dataset[i];
 	                if(config.server == 'spring') params = dataset[i]; // java
-	                _service.save(params, function (data) {
-	                    scope[_dataset][0].id = data[_dataset].id;
+	                _service.CUD.save(params, function (data) {
+	                    scope[_dataset][0].id = data.uip_centers.id;
 	                })
 	            } else if(status == 'U') {
 	            	params[_dataset] = dataset[i];
 	            	params.id = dataset[i].id;
 	                if(config.server == 'spring') params = params[_dataset]; // java
-	                _service.update(params, function (data) {
-	                    scope[_dataset][currow] = data[_dataset];
+	                _service.CUD.update(params, function (data) {
+	                    scope[_dataset][currow] = data.uip_centers.id;
 	                })
 	            } else if(status == 'D') {
 	            	scope.uip_center.curid = dataset[i].id;
-            		_service.delete({"id" : dataset[i].id}, function (data) {
+            		_service.CUD.delete({id : dataset[i].id}, function (data) {
             			lookupDs(scope.uip_center.curid, function (row){
 							scope[_dataset].splice(row, 1);
 						});
