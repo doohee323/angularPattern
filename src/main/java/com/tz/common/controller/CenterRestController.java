@@ -50,8 +50,8 @@ public class CenterRestController {
     public @ResponseBody
     Map<String, Object> save(@RequestBody Center center){
         Map<String, Object> data = new HashMap<String, Object>();
-        Center centers = centerService.save(center);
-        data.put("uip_centers", centers);
+        center = centerService.save(center);
+        data.put("uip_centers", center);
         return data;
     }
 

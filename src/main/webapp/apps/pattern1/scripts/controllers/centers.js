@@ -14,7 +14,7 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $state,
     	$scope.alerts = [];
     	CenterService.get({queryCode : $scope.queryCode}, function(data) {
     	 	$scope.uip_center = data.uip_centers;
-    	 	$scope.alert(data.uip_centers);
+    	 	$scope.alert.retrieve(data.uip_centers);
     	});
     };
     $scope.saveData = function () {
@@ -24,7 +24,7 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $state,
         	params = $scope.uip_center; // java
         	CenterService.save(params, function (data) {
         		$scope.uip_center = data.uip_centers;
-        		$scope.alert(data.uip_centers.id);
+        		$scope.alert.save(data.uip_centers.id);
         	})
     	} else {
         	var params = {uip_center : $scope.uip_center,
@@ -32,14 +32,14 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $state,
 		   	params = params.uip_center; // java
 		   	CenterService.update(params, function (data) {
 		   		$scope.uip_center = data.uip_centers;
-		   		$scope.alert(data.uip_centers.id);
+        		$scope.alert.save(data.uip_centers.id);
 		   	})
     	}
     };
     $scope.deleteData = function () {
     	$scope.alerts = [];
     	CenterService.delete({"id" : $scope.uip_center.id}, function (data) {
-    		$scope.alert(data.uip_centers);
+    		$scope.alert.delete(data.uip_centers);
     		$scope.uip_center = {};
     	})
     };

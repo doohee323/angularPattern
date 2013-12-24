@@ -55,11 +55,11 @@ public class RegionRestController {
         return list;
     }
 
-    @RequestMapping(value = "/uip_regions", method = RequestMethod.POST)
+    @RequestMapping(value = "/uip_regions/{uip_center_id}", method = RequestMethod.POST)
     public @ResponseBody
-    Map<String, Object> save(@RequestBody Region region){
+    Map<String, Object> save(@PathVariable("uip_center_id") int uipCenterId, @RequestBody Region region){
         Map<String, Object> data = new HashMap<String, Object>();
-        regionService.save(region);
+        region = regionService.save(region);
         data.put("uip_regions", region);
         return data;
     }
@@ -74,8 +74,11 @@ public class RegionRestController {
     }
 
     @RequestMapping(value = "/uip_regions/{uip_center_id}/{id}", method = RequestMethod.DELETE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable("uip_center_id") int uipCenterId, @PathVariable("id") int id){
+    public @ResponseBody
+    Map<String, Object> delete(@PathVariable("uip_center_id") int uipCenterId, @PathVariable("id") int id){
+        Map<String, Object> data = new HashMap<String, Object>();
         regionService.delete(uipCenterId, id);
+        data.put("id", id);
+        return data;
     }
 }

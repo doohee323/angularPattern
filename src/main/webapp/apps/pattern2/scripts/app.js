@@ -6,7 +6,7 @@ var config = {
 	url : 'http://localhost\\:8080/rest',
 	// url : '/pattern/pt42/masterdetail',
 	server : 'spring', // spring, rails,
-	uip_center : {}
+	uip_centers : {}
 };
 
 var app = angular.module('sheepwebApp',
@@ -26,7 +26,7 @@ function($stateProvider, $urlRouterProvider, $locationProvider) {
 		templateUrl : '/apps/pattern2/views/centers.html',
 		controller : 'CentersCtrl',
 	}).state('default.regions', {
-		url : "/regions/:id",
+		url : "/regions/:id/:code",
 		templateUrl : '/apps/pattern2/views/regions.html',
 		controller : 'RegionsCtrl',
 	});

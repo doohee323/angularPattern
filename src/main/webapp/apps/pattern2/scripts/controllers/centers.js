@@ -23,11 +23,11 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $timeou
     
 	MessageCtrl.init($scope);
 	
-	$scope.$watch('uip_center', function(){
+	$scope.$watch('uip_centers', function(){
 		if($scope.gridInit && !$scope['gridCenter']) {
 		    $scope.gridInit(CenterService, columnDefs);
 		    $scope.getDatas(null, function (data){
-	    		$scope.alert(data.uip_centers);
+		    	$scope.alert.retrieve(data.uip_centers);
 			});
 		}
 	}, true);
@@ -35,7 +35,7 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $timeou
     $scope.searchData = function () {
     	$scope.alerts = [];
     	$scope.retrieveData({queryCode : $scope.queryCode}, function (data){
-    		$scope.alert(data.uip_centers);
+	    	$scope.alert.retrieve(data.uip_centers);
 		});
     };
 	

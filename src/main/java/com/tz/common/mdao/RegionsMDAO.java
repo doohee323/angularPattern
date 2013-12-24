@@ -3,6 +3,7 @@ package com.tz.common.mdao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -39,7 +40,7 @@ public class RegionsMDAO {
     public List<Region> getByCode2(String uipCenterCode){
         dao = (MongoOperations)springMongo.mongoTemplate();
         int uipCenterId = centersDAO.getByCode(uipCenterCode).getId();
-        return dao.find(new Query(Criteria.where("uip_center_id").is(uipCenterId)), Region.class, "uip_regions");
+        return dao.find(new Query(Criteria.where("uip_center_id").is(uipCenterId)).with(new Sort(Sort.Direction.DESC, "_id")), Region.class, "uip_regions");
     }
 
     public Region getById(int uipCenterId, int id){
@@ -50,12 +51,13 @@ public class RegionsMDAO {
 
     public List<Region> searchRegions(String name){
         dao = (MongoOperations)springMongo.mongoTemplate();
-        return dao.find(new Query(Criteria.where("name").regex(name + "*")), Region.class, "uip_regions");
+        return dao.find(new Query(Criteria.where("name").regex(name + "*")).with(new Sort(Sort.Direction.DESC, "_id")), Region.class, "uip_regions");
     }
 
     public List<Region> getAllRegions(){
         dao = (MongoOperations)springMongo.mongoTemplate();
-        return dao.findAll(Region.class, "uip_regions");
+        Query q = new Query().with(new Sort(Sort.Direction.DESC, "_id"));
+        return dao.find(q, Region.class, "uip_regions"); //dao.findAll(Region.class, "uip_regions");
     }
 
     public Region save(Region region){

@@ -6,37 +6,53 @@ app.factory('MessageCtrl', function () {
 		$scope = scope;
 	    $scope.alerts = [];
 		
-		$scope.alert = function (data, type, input) {
-	        var alerts = [{ type: 'success', msg: 'Sucess!' },
-	                      { type: 'info', msg: 'No data!' },
-	                      { type: 'required', msg: 'Required! @' },
-	                      { type: 'error', msg: 'Error!' }
+		$scope.alert = function (type, msgId, param) {
+	        var alerts = [{ type: 'success', msgId: 'pbf.success', msg: '@ sucess!' },
+	                      { type: 'info', msgId: 'pbf.nodata', msg: 'No data!' },
+	                      { type: 'required', msgId: 'pbf.required', msg: '@ required!' },
+	                      { type: 'error', msgId: 'pbf.error', msg: '@ error!' }
 	                      ];
 	        
-	        if(type) {
-	        	for(var i=0;i<alerts.length;i++) {
-	        		if(alerts[i].type == type) {
-        				var msg = alerts[i].msg;
-	        			if(input) {
-	        				msg = msg.replace('@', input);
-	        				alerts[i].msg = msg;
-		        			$scope.alerts.push(alerts[i]);
-	        			} else {
-	        				msg = msg.replace('@', '');
-	        				alerts[i].msg = msg;
-		        			$scope.alerts.push(alerts[i]);
-	        			}
-	        			return;
-	        		}
-	        	}
-	        } else {
-		        if(data) {
-		    	 	$scope.alerts.push(alerts[0]);
-				} else {
-		    	 	$scope.alerts.push(alerts[1]);
-				}
-	        }
+        	for(var i=0;i<alerts.length;i++) {
+        		if(alerts[i].msgId == msgId) {
+    				var msg = alerts[i].msg;
+        			if(param) {
+        				msg = msg.replace('@', param);
+        				alerts[i].msg = msg;
+	        			$scope.alerts.push(alerts[i]);
+        			} else {
+        				msg = msg.replace('@', '');
+        				alerts[i].msg = msg;
+	        			$scope.alerts.push(alerts[i]);
+        			}
+        			return;
+        		}
+        	}
 	    }
+
+    	$scope.alert.retrieve = function (data) {
+    		if(data) {
+	    		$scope.alert('success', 'pbf.success', 'Retrieve');
+	    	} else {
+	    		$scope.alert('info', 'pbf.nodata');
+	    	}
+    	}
+		
+    	$scope.alert.save = function (data) {
+    		if(data) {
+	    		$scope.alert('success', 'pbf.success', 'Save');
+	    	} else {
+	    		$scope.alert('error', 'pbf.error');
+	    	}
+    	}
+		
+    	$scope.alert.delete = function (data) {
+    		if(data) {
+	    		$scope.alert('success', 'pbf.success', 'Delete');
+	    	} else {
+	    		$scope.alert('error', 'pbf.error');
+	    	}
+    	}
 		
 	    $scope.closeAlert = function(index) {
 	        $scope.alerts.splice(index, 1);

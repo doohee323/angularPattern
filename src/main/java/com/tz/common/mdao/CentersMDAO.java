@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -50,12 +51,13 @@ public class CentersMDAO {
 
     public List<Center> searchCenters(String name){
         dao = (MongoOperations)springMongo.mongoTemplate();
-        return dao.find(new Query(Criteria.where("name").regex(name + "*")), Center.class, "uip_centers");
+        return dao.find(new Query(Criteria.where("name").regex(name + "*")).with(new Sort(Sort.Direction.DESC, "_id")), Center.class, "uip_centers");
     }
 
     public List<Center> getAllCenters(){
         dao = (MongoOperations)springMongo.mongoTemplate();
-        return dao.findAll(Center.class, "uip_centers");
+        Query q = new Query().with(new Sort(Sort.Direction.DESC, "_id"));
+        return dao.find(q, Center.class, "uip_centers"); //dao.findAll(Center.class, "uip_centers");
     }
 
     public Center save(Center center){

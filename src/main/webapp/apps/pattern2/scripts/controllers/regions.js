@@ -19,21 +19,22 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $timeou
 		        {field:'chief', displayName:'chief', editableCellTemplate: cellEditableTemplate},
 		        {field:'address', displayName:'address', editableCellTemplate: cellEditableTemplate}
                  ];
-    
+
     MessageCtrl.init($scope);
     
-	$scope.$watch('uip_region', function(){
+	$scope.$watch('uip_regions', function(){
 		if($scope.gridInit && !$scope['gridRegion']) {
-			$scope.uip_center = config.uip_center;
+			$scope.uip_centers = config.uip_centers;
 			
 	        $timeout(function() {
-	        	$scope.queryCenterCode = $stateParams.id;
+	        	$scope.queryCenterCode = $stateParams.code;
 	        }, 500);
 			
-		    var params = {uip_center_code: $stateParams.id};
+		    var params = {uip_center_code: $stateParams.code};
 		    $scope.gridInit(RegionService, columnDefs);
 		    $scope.getDatas(params, function (data){
-	    		$scope.alert(data.uip_regions);
+		    	$scope.alert.retrieve(data.uip_regions);
+		    	$scope.setInput({'uip_center_id': $stateParams.id});
 			});
 		}
 	}, true);
@@ -41,7 +42,7 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $timeou
     $scope.searchData = function () {
     	$scope.alerts = [];
     	$scope.retrieveData({uip_center_code: $scope.queryCenterCode, code: $scope.queryCode}, function (data){
-    		$scope.alert(data.uip_regions);
+	    	$scope.alert.retrieve(data.uip_regions);
 		});
     };	
 	
@@ -52,8 +53,18 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $timeou
     $scope.getRegions = function (code) {
 	    var params = {uip_center_code: code, code: $scope.queryCode};
     	$scope.getDatas(params, function (data){
-    		$scope.alert(data.uip_regions);
+	    	$scope.alert.retrieve(data.uip_regions);
 		});
     }
+    
+    $scope.postInsert = function (scope) {
+        scope.uip_regions[0].uip_center_id = $scope.queryCenterCode
+    }    
+    $scope.deleteInsert = function (scope) {
+    }    
+    $scope.saveInsert = function (scope) {
+    }    
+    $scope.initInsert = function (scope) {
+    }     
     
   });

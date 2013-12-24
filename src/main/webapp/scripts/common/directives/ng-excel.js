@@ -5,7 +5,6 @@ app.directive('ngExcel', function($compile, $timeout, config){
 	var _service;
 	var _grid;
 	var _dataset;	// ex) uip_center
-	var _datasets;	// ex) uip_centers
 	var _input;		// params
 	
 	var getTemplate = function(grid) {
@@ -19,7 +18,6 @@ app.directive('ngExcel', function($compile, $timeout, config){
 		scope.gridInit = function(service, columnDefs, input) {
 			_service = service;
 			_input = input;
-			_datasets = _dataset + 's';
 			
 			scope[_grid] = {
 			        data: _dataset,
@@ -74,17 +72,18 @@ app.directive('ngExcel', function($compile, $timeout, config){
 			scope.callback = callback;
 	    	var params = {};
 	    	if(input) params = input;
+	    	if(_input) params = mergeData(_input, params);
 	    	_service.R.get(params, function(data) {
-	    		if(data[_datasets]) {
-	    			if(data[_datasets].length) {
-			            for (var i = 0; i < data[_datasets].length; i++) {
-			                data[_datasets][i].status = 'R';
+	    		if(data[_dataset]) {
+	    			if(data[_dataset].length) {
+			            for (var i = 0; i < data[_dataset].length; i++) {
+			                data[_dataset][i].status = 'R';
 			            };
-			            scope[_dataset] = data[_datasets];
-	    			} else if(data[_datasets].id){
-			            data[_datasets].status = 'R';
+			            scope[_dataset] = data[_dataset];
+	    			} else if(data[_dataset].id){
+			            data[_dataset].status = 'R';
 			            var list = [];
-			            list[0] = data[_datasets];
+			            list[0] = data[_dataset];
 			            scope[_dataset] = list;
 	    			}
 	    		}
@@ -94,17 +93,24 @@ app.directive('ngExcel', function($compile, $timeout, config){
 	        });
 	    };
 
+	    scope.setInput = function (input) {
+	    	_input = input;
+	    };
+
 	    scope.retrieveData = function (input, callback) {
-	    	if(_input) input = _input;
 	    	scope.getDatas(input, callback);
 	    };
 
-	    scope.insertData = function () {
+	    scope.insertData = function (callback) {
 	        var data = scope[_grid].columnDefs;
 	        var newData = getAddRow(data);
 	        if(_input) newData = mergeData(_input, newData);
 	        newData.status = 'I';
 	        scope[_dataset].unshift(newData);
+	        
+	        if(callback) {
+		        eval('scope.' + callback + '(this)');
+	        }
 
 	        var selectRow = function() {
 	            scope[_grid].selectRow(0, true);
@@ -113,7 +119,7 @@ app.directive('ngExcel', function($compile, $timeout, config){
 	        $timeout(selectRow, 500);
 	    };
 
-	    scope.deleteData = function () {
+	    scope.deleteData = function (callback) {
 	        var id = scope[_grid].selectedItems[0].id;
 	        for (var i = 0; i < scope[_dataset].length; i++) {
 	            if(scope[_dataset][i].id == id) {
@@ -124,9 +130,12 @@ app.directive('ngExcel', function($compile, $timeout, config){
 	                }
 	            }
 	        };
+	        if(callback) {
+		        eval('scope.' + callback + '(this)');
+	        }
 	    };
 
-	    scope.initData = function () {
+	    scope.initData = function (callback) {
 	    	if(!scope[_grid].selectedItems[0]) return;
 	        var id = scope[_grid].selectedItems[0].id;
 	        for (var i = 0; i < scope[_dataset].length; i++) {
@@ -137,38 +146,41 @@ app.directive('ngExcel', function($compile, $timeout, config){
 	                break;
 	            }
 	        };
+	        if(callback) {
+		        eval('scope.' + callback + '(this)');
+	        }
 	    };
 
-	    scope.saveData = function () {
+	    scope.saveData = function (callback) {
+	    	scope.alerts = [];
 	        var dataset = angular.copy(scope[_dataset]);
 	        for (var i = 0; i < dataset.length; i++) {
 	            var status = dataset[i].status;
 	            var currow = i;
 	            delete dataset[i].status;
-	            var params = {};
+	            var params = dataset[i];
 	            if(status == 'I') {
-	                params[_dataset] = dataset[i];
-	                if(config.server == 'spring') params = dataset[i]; // java
+	            	params = mergeData(_input, params);
 	                _service.CUD.save(params, function (data) {
-	                    scope[_dataset][0].id = data.uip_centers.id;
+	                    scope[_dataset][0].id = data[_dataset].id;
+	                    scope.alert.save(data[_dataset]);
 	                })
 	            } else if(status == 'U') {
-	            	params[_dataset] = dataset[i];
-	            	params.id = dataset[i].id;
-	                if(config.server == 'spring') params = params[_dataset]; // java
 	                _service.CUD.update(params, function (data) {
-	                    scope[_dataset][currow] = data.uip_centers.id;
+	                    scope[_dataset][currow] = data[_dataset].id;
+	                    scope.alert.save(data[_dataset]);
 	                })
 	            } else if(status == 'D') {
-	            	scope.uip_center.curid = dataset[i].id;
-            		_service.CUD.delete({id : dataset[i].id}, function (data) {
-            			lookupDs(scope.uip_center.curid, function (row){
-							scope[_dataset].splice(row, 1);
-						});
+            		_service.CUD.delete(params, function (data) {
+            			scope[_dataset].splice(i-1, 1);
+            			scope.alert.delete(data);
                 	})
 	            }
 	            scope[_dataset][i].status = 'R';
 	        };
+	        if(callback) {
+		        eval('scope.' + callback + '(this)');
+	        }
 	    };
 
 		var lookupDs = function ( id, callback ) {

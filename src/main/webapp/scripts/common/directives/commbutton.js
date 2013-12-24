@@ -1,10 +1,10 @@
 'use strict';
 
 app.directive('commbutton', function($compile) {
-		var getTemplate = function(aType, aData, aDataset) {
+		var getTemplate = function(aType, aData, aCallback) {
 			var template = '<button id="' + aType + aData + '" class="btn btn-primary" type="button" ng-click="' + aType + 'Data';
-			if(aDataset) {
-				template += '(' + aDataset + ')"';
+			if(aCallback) {
+				template += '(\'' + aCallback + '\')"';
 			} else {
 				template += '()"';
 			}
@@ -13,7 +13,7 @@ app.directive('commbutton', function($compile) {
 		};
 
 		var linker = function(scope, element, attr) {
-			element.html(getTemplate(attr["type"], attr["data"], attr["dataset"])).show();
+			element.html(getTemplate(attr["type"], attr["data"], attr["callback"])).show();
 //			element.bind('click', function() {
 //				eval('scope.' + attr["type"] + attr["data"] + '()');
 //				return;

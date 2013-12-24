@@ -9,10 +9,10 @@ app.controller('NavbarCtrl', function ($scope, $location, $state) {
     $scope.goTo = function ( path, row ) {
     	if(path == '/') {
     	} else if(row) {
-    		if($scope.$$childHead.$$childHead.$$childHead.uip_center) {
-        		config.uip_center = $scope.$$childHead.$$childHead.$$childHead.uip_center;
+    		if($scope.$$childHead.$$childHead.$$childHead.uip_centers) {
+        		config.uip_centers = $scope.$$childHead.$$childHead.$$childHead.uip_centers;
     		}
-    		$state.go('default.' + path, {id: row.entity.code});
+    		$state.go('default.' + path, {code: row.entity.code, id: row.entity.id});
     	} else if($scope.uip_center[0]) { // go to centers
     		//path += $scope.uip_center[0].id;
     		$state.go('default.centers');
