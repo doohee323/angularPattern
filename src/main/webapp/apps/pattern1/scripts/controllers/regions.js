@@ -1,6 +1,6 @@
 'use strict';
 
-app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $state, RegionService, RegionServiceGet, MessageCtrl) {
+app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $state, RegionService, MessageCtrl) {
 	$scope.$location = $location;
     $scope.newRegion = {};
 
@@ -10,7 +10,7 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $state,
     
     $scope.retrieveData = function () {
     	$scope.alerts = [];
-    	RegionServiceGet.get({uip_center_code: $scope.queryCenterCode, code : $scope.queryCode}, function(data) {
+    	RegionService.R.get({uip_center_code: $scope.queryCenterCode, code : $scope.queryCode}, function(data) {
     	 	$scope.uip_region = data.uip_regions;
     	 	$scope.alert.retrieve(data.uip_regions);
     	});
@@ -24,17 +24,14 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $state,
     	}
     	$scope.uip_region.uip_center_id = $scope.queryCenterCode;
     	if(!$scope.uip_region.id) {
-        	var params = {uip_region : $scope.uip_region};
-        	params = $scope.uip_region; // java
-        	RegionService.save(params, function (data) {
+        	var params = $scope.uip_region;
+        	RegionService.CUD.save(params, function (data) {
         		$scope.uip_region = data.uip_regions;
         		$scope.alert.save(data.uip_regions.id);
         	})
     	} else {
-        	var params = {uip_region : $scope.uip_region,
-   				 id : $scope.uip_region.id};
-		   	params = params.uip_region; // java
-		   	RegionService.update(params, function (data) {
+        	var params = $scope.uip_region;
+		   	RegionService.CUD.update(params, function (data) {
 		   		$scope.uip_region = data.uip_regions;
         		$scope.alert.save(data.uip_regions.id);
 		   	})
@@ -43,8 +40,9 @@ app.controller('RegionsCtrl', function ($scope, $location, $stateParams, $state,
 
     $scope.deleteData = function () {
     	$scope.alerts = [];
-    	RegionService.delete({"id" : $scope.uip_region.id}, function (data) {
-    		$scope.alert.delete(data.uip_regions);
+    	var params = $scope.uip_region;
+    	RegionService.CUD.delete(params, function (data) {
+    		$scope.alert.delete(data.id);
     		$scope.uip_region = {};
     	})
     };

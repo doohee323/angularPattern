@@ -29,7 +29,7 @@ app.constant('config', config)
 			templateUrl : '/apps/pattern1/views/centers.html',
 			controller : 'CentersCtrl',
 		}).state('default.regions', {
-			url : "/regions/:id",
+			url : "/regions/:id/:code",
 			templateUrl : '/apps/pattern1/views/regions.html',
 			controller : 'RegionsCtrl',
 		});

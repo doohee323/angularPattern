@@ -1,30 +1,62 @@
 angularPattern
 =========
 
+Spring (Spring MVC, Spring Data)
+Angular.js 
+Hibernate (Oracle)
+MongoDb
+
+SAHM Stack
+
 web app with angular.js, bootstrap and Spring restful
 
 This is made with these traits.
 
-# 0. yeoman and bower
-# 1. angular.js 
-     https://github.com/doohee323/sheepweb.git
-    - angular.js $resource
-# 2. bootstrap
-# 3. server-side
-     - springframework : https://github.com/doohee323/angularPattern
+0. purpose : UI patten driven development support for angular.js application
+1. support UI pattern
 
-this app is deployed at heroku
+$scope.patterns = [
+	{
+		name : 'P1 Single Detail',
+		image : 'images/1.png',
+		desc : 'Perform on a screen for CRUD actions.',
+		sample : 'apps/pattern1/index.html'
+	},
+	{
+		name : 'P2 Multi Detail (Edit)',
+		image : 'images/2.png',
+		desc : 'Retrieve list and perform CRUD actions for multi-rows on a screen.',
+		sample : 'apps/pattern2/index.html'
+	},
+	{
+		name : 'P3 Multi Detail (List to Edit)',
+		image : 'images/3.png',
+		desc : 'Retrieve list and perform CRUD actions for 1 row using by two screens.',
+		sample : 'apps/pattern3/index.html'
+	},
+	{
+		name : 'P4 Master / Detail [1:n]',
+		image : 'images/4.png',
+		desc : 'Retrieve single master data and perform CRUD actions for multi detail data on a screen.',
+		sample : 'apps/pattern4/index.html'
+	},
+	{
+		name : 'P5 Master / Detail [n:1]</h4>',
+		image : 'images/5.png',
+		desc : 'Retrieve multi master data and perform CRUD actions for sigle detail data on a screen.',
+		sample : '/'
+	},
+	{
+		name : 'P6 Master / Detail [n:n]',
+		image : 'images/6.png',
+		desc : 'Retrieve multi master data and perform CRUD actions for multi detail data on a screen.',
+		sample : '/'
+	} ];
 
-http://angularPattern.herokuapp.com
+# 0. switching database
+/angularPattern/src/main/resources/environment-config.properties
 
-There are some articles related with this app.
-
-- Deploy angular.js app in heroku with yeoman
-     - http://doohee323.blogspot.kr/2013/10/deploy-angularjs-app-in-heroku-with.html
-
-- Porting spring from git to heroku
-     - restful
-     - Hibernate
-     - CorsFilter - Cross Origin Resource Sharing (CORS)
+# hibernate,mongodb
+com.tz.db.type=hibernate
 
 
