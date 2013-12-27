@@ -7,7 +7,7 @@ angularPattern
 - MongoDb
 # => SAHM Stack
 
-this app is deployed as below.
+This app is deployed as below.<br>
 http://goo.gl/RFMd3L
 
 web app with angular.js, bootstrap and Spring restful
@@ -54,10 +54,10 @@ This is made with these traits.
 	com.tz.db.type=hibernate
 	
 * base context setting
-1. /angularPattern/src/main/webapp/index.html
-  <head>
-  	<base href="http://topzone.dyndns.org:9080/angularPattern/">
-2. /angularPattern/src/main/webapp/scripts/app.js
+1. /angularPattern/src/main/webapp/index.html <br>
+  < head > <br>
+  	< base href="http://topzone.dyndns.org:9080/angularPattern/" >
+2. /angularPattern/src/main/webapp/scripts/app.js <br>
 	url : 'http://topzone.dyndns.org\\:9080/rest',
 	
 	
