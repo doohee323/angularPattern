@@ -81,7 +81,7 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $timeou
     }
     
     $scope.goHomeData = function () {
-    	document.location = '/';
+    	document.location = '/angularPattern';
 	}
     
     $scope.listData = function () {
