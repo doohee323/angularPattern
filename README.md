@@ -4,7 +4,7 @@ angularPattern
 - Spring (Spring MVC, Spring Data)
 - Angular.js 
 - Hibernate (Oracle)
-- MongoDb
+- MongoDb <br>
 # => SAHM Stack
 
 This app is deployed as below.<br>
