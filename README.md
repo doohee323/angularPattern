@@ -1,12 +1,14 @@
 angularPattern
 =========
 
-# Spring (Spring MVC, Spring Data)
-# Angular.js 
-# Hibernate (Oracle)
-# MongoDb
+- Spring (Spring MVC, Spring Data)
+- Angular.js 
+- Hibernate (Oracle)
+- MongoDb
+# => SAHM Stack
 
-=> SAHM Stack
+this app is deployed as below.
+http://goo.gl/RFMd3L
 
 web app with angular.js, bootstrap and Spring restful
 
@@ -50,5 +52,14 @@ This is made with these traits.
 	
 	3. hibernate,mongodb
 	com.tz.db.type=hibernate
+	
+* base context setting
+1. /angularPattern/src/main/webapp/index.html
+  <head>
+  	<base href="http://topzone.dyndns.org:9080/angularPattern/">
+2. /angularPattern/src/main/webapp/scripts/app.js
+	url : 'http://topzone.dyndns.org\\:9080/rest',
+	
+	
 	
 
