@@ -1,202 +1,210 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project name='angularPattern' default='all' basedir='.'>
-    <!--
-    -->
-	<property file='build.properties'/>
-	<property name='compiler'                value='${ant.compiler}' />
-	<property name='app.name'                value='${ant.project.name}'/>
-	
-    <property name='src.dir'                 value='.' />
-    <property name='src.resources.common'    value='src/main/resources/common' />
-    <property name='src.resources.local'     value='src/main/resources/local' />
-    <property name='src.deploy.overwrite'    value='src/deploy' />
-    <property name='src.dir.web'             value='src/main/webapp' />
-	<property name="src.lib.dir" 			 value="${src.dir.web}/WEB-INF/lib" />
-	
-    <property name='build.dir'               value='${war.dir}/${app.name}' />
-    <property name='build.dir.classes'       value='${build.dir}/WEB-INF/classes' />
-	
-    <property name='was.dir'                 value='${deploy.dir}/${app.name}' />
+	<!-- -->
+	<property file='build.properties' />
+	<property name='compiler' value='${ant.compiler}' />
+	<property name='app.name' value='${ant.project.name}' />
+
+	<property name='src.dir' value='.' />
+	<property name='src.resources.common' value='src/main/resources/common' />
+	<property name='src.resources.local' value='src/main/resources/local' />
+	<property name='src.deploy.overwrite' value='src/deploy' />
+	<property name='src.dir.web' value='src/main/webapp' />
+	<property name="src.lib.dir" value="${src.dir.web}/WEB-INF/lib" />
+
+	<property name='build.dir' value='${war.dir}/${app.name}' />
+	<property name='build.dir.classes' value='${build.dir}/WEB-INF/classes' />
+
+	<property name='was.dir' value='${deploy.dir}/${app.name}' />
 
 	<property name="common.src.dir" value="src/main/resources/common" />
 	<property name="java.src.dir" value="src/main/java" />
-	
+
 	<path id="build.classpath">
 		<fileset dir="${src.lib.dir}" includes="**/*.jar" />
 	</path>
 	
-	<target name='all' depends='init, compile, config, deploy, devserver, jar, ftp, unjar, tomcat-reload'/>
-	
-    <target name='init' description="ant init">
+	<target name='all' depends='git'/>
+<!-- 	<target name='all' depends='init, compile, config, deploy, devserver, jar, ftp, unjar, tomcat-reload'/> -->
+
+	<target name='git' description="ant git">
 		<tstamp>
 			<format property="init.time" pattern="yyyyMMdd-HHmmss" />
 		</tstamp>
-        <delete dir='${build.dir}' quiet='true' />
-        <mkdir  dir='${build.dir}' />
-        
-    	<echo message="deploy from ${src.dir.web} to ${build.dir}" />
-        <sync todir='${build.dir}' includeemptydirs='true' overwrite="true">
-            <fileset dir='${src.dir.web}' />
-            <preserveintarget>
-            	<include name='**/WEB-INF/web.xml'/>
-            </preserveintarget>
-        </sync>
-        
-        <mkdir  dir='${build.dir.classes}'/>
-    </target>
-	
-    <target name='compile' depends='init' description="compile java in build dir">
-    	<echo message="complie java from ${java.src.dir} to ${build.dir.classes}" />
-        <javac destdir='${build.dir.classes}' 
-    		nowarn="true" debug="true" debuglevel="source,lines,vars" encoding='UTF-8' includeantruntime="false" deprecation='false' 
-        	fork="yes" executable="${compiler}" compiler="javac1.7">
-			<src path="${java.src.dir}/sy" />
-			<src path="${java.src.dir}/batch" />
-			<src path="${java.src.dir}/template" />
-			<src path="${java.src.dir}/hm" />
-			<src path="${java.src.dir}/fm" />
-			<src path="${java.src.dir}/md" />
-			<src path="${java.src.dir}/mm" />
-        	<classpath refid="build.classpath" />
-        </javac>
-    </target>
+		<delete dir='${build.dir}' quiet='true' />
+		<mkdir dir='${build.dir}' />
+
+		<delete dir='angularPattern' quiet='true' failonerror='false'/>
+		<exec executable="git">
+			<arg value="clone" />
+			<arg value="git@github.com:doohee323/angularPattern.git" />
+		</exec>
+		<move todir="${build.dir}">
+			<fileset dir="angularPattern" />
+		</move>
+
+		<mkdir dir='${build.dir.classes}' />
+	</target>
+
+	<target name='init' description="ant init">
+		<tstamp>
+			<format property="init.time" pattern="yyyyMMdd-HHmmss" />
+		</tstamp>
+		<delete dir='${build.dir}' quiet='true' />
+		<mkdir dir='${build.dir}' />
+
+		<echo message="deploy from ${src.dir.web} to ${build.dir}" />
+		<sync todir='${build.dir}' includeemptydirs='true' overwrite="true">
+			<fileset dir='${src.dir.web}' />
+			<preserveintarget>
+				<include name='**/WEB-INF/web.xml' />
+			</preserveintarget>
+		</sync>
+
+		<mkdir dir='${build.dir.classes}' />
+	</target>
+
+	<target name='compile' depends='init' description="compile java in build dir">
+		<echo message="complie java from ${java.src.dir} to ${build.dir.classes}" />
+		<javac destdir='${build.dir.classes}' nowarn="true" debug="true"
+			debuglevel="source,lines,vars" encoding='UTF-8' includeantruntime="false"
+			deprecation='false' fork="yes" executable="${compiler}" compiler="javac1.7">
+			<src path="${java.src.dir}" />
+			<classpath refid="build.classpath" />
+		</javac>
+	</target>
 
 	<target name='sqlmap' depends='compile' description="sync sqlmap in build dir">
-    	<echo message="sync sqlmap from ${java.src.dir} to ${build.dir.classes}" />
-    	<sync todir='${build.dir.classes}' includeemptydirs='false' overwrite="true">
-    		<fileset dir='${java.src.dir}/sy' />
-    		<fileset dir='${java.src.dir}/batch' />
-    		<fileset dir='${java.src.dir}/template' />
-    		<fileset dir='${java.src.dir}/hm' />
-    		<fileset dir='${java.src.dir}/fm' />
-    		<fileset dir='${java.src.dir}/md' />
-    		<fileset dir='${java.src.dir}/mm' />
-    		<preserveintarget>
-            	<include name='**/*.class'/>
-            </preserveintarget>
-    	</sync>		
+		<echo message="sync sqlmap from ${java.src.dir} to ${build.dir.classes}" />
+		<sync todir='${build.dir.classes}' includeemptydirs='false'
+			overwrite="true">
+			<fileset dir='${java.src.dir}' />
+			<preserveintarget>
+				<include name='**/*.class' />
+			</preserveintarget>
+		</sync>
 	</target>
-	
-    <!--
-    -->
+
+	<!-- -->
 	<target name='config' depends='compile,sqlmap' description="sync config in build dir">
 		<echo message="sync config from ${java.src.dir} to ${build.dir.classes}" />
-    	<sync todir='${build.dir.classes}' includeemptydirs='false' overwrite="true">
-    		<fileset dir='${src.resources.common}' />
-    		<fileset dir='${src.resources.local}' />
-    		<fileset dir='${src.deploy.overwrite}' />
-    		<preserveintarget>
-            	<include name='**/*.class'/>
-            	<include name='**/*.properties'/>
-            	<include name='**/*.xml'/>
-        		<include name='**/*.xsd'/>
-            </preserveintarget>
-    	</sync>
+		<sync todir='${build.dir.classes}' includeemptydirs='false'
+			overwrite="true">
+			<fileset dir='${src.resources.common}' />
+			<fileset dir='${src.resources.local}' />
+			<fileset dir='${src.deploy.overwrite}' />
+			<preserveintarget>
+				<include name='**/*.class' />
+				<include name='**/*.properties' />
+				<include name='**/*.xml' />
+				<include name='**/*.xsd' />
+			</preserveintarget>
+		</sync>
 	</target>
 
-    <!--
-    -->
-    <target name='deploy' depends='init, compile, config' description="make full war in deploy target">
-<!--     	<echo message="deploy from ${build.dir} to ${was.dir}" /> -->
-<!--         <sync todir='${was.dir}' overwrite="true"> -->
-<!--             <fileset dir='${build.dir}' /> -->
-<!--         </sync> -->
-    </target>
+	<!-- -->
+	<target name='deploy' depends='init, compile, config'
+		description="make full war in deploy target">
+		<!-- <echo message="deploy from ${build.dir} to ${was.dir}" /> -->
+		<!-- <sync todir='${was.dir}' overwrite="true"> -->
+		<!-- <fileset dir='${build.dir}' /> -->
+		<!-- </sync> -->
+	</target>
 
-    <!--
-    -->
-	<target name='devserver' depends='deploy' description="overwrite dev resource to deploy target">
-		<echo message="overwrite config from ${build.dir.classes}/overwrite/DEV to ${build.dir}" />
+	<!-- -->
+	<target name='devserver' depends='deploy'
+		description="overwrite dev resource to deploy target">
+		<echo
+			message="overwrite config from ${build.dir.classes}/overwrite/DEV to ${build.dir}" />
 		<copy todir="${build.dir}" overwrite="true">
-			<fileset dir="${build.dir.classes}/overwrite/DEV" includes="**/*"/>
+			<fileset dir="${build.dir.classes}/overwrite/DEV" includes="**/*" />
 		</copy>
-<!-- 		<echo message="overwrite config from ${build.dir.classes}/overwrite/DEV to ${was.dir}" /> -->
-<!-- 		<copy todir="${was.dir}" overwrite="true"> -->
-<!-- 			<fileset dir="${build.dir.classes}/overwrite/DEV" includes="**/*"/> -->
-<!-- 		</copy> -->
+		<!-- <echo message="overwrite config from ${build.dir.classes}/overwrite/DEV 
+			to ${was.dir}" /> -->
+		<!-- <copy todir="${was.dir}" overwrite="true"> -->
+		<!-- <fileset dir="${build.dir.classes}/overwrite/DEV" includes="**/*"/> -->
+		<!-- </copy> -->
 	</target>
-	
+
 	<target name="jar" depends="">
-		<jar destfile="${build.dir}.jar"
-		       basedir="${build.dir}" />
+		<jar destfile="${build.dir}.jar" basedir="${build.dir}" />
 	</target>
-	
+
 	<target name="ftp" description="upload war file to server">
-		<ftp server="${ftp-server}" remotedir="${server.root}/tmp"
-			userid="${ftp-userid}" password="${ftp-password}"
-			action="mkdir" verbose="yes">
+		<ftp server="${ftp-server}" remotedir="${server.root}/tmp" userid="${ftp-userid}"
+			password="${ftp-password}" action="mkdir" verbose="yes">
 		</ftp>
-		<ftp server="${ftp-server}"
-		       port="21"
-		       remotedir="${server.root}/tmp"
-		       userid="${ftp-userid}"
-		       password="${ftp-password}"
-		       passive="yes"
-		       depends="no"
-		       binary="yes">
-	    	<fileset file="${build.dir}.jar" />
-  		</ftp>
+		<ftp server="${ftp-server}" port="21" remotedir="${server.root}/tmp"
+			userid="${ftp-userid}" password="${ftp-password}" passive="yes"
+			depends="no" binary="yes">
+			<fileset file="${build.dir}.jar" />
+		</ftp>
 	</target>
-	
+
 	<target name="unjar" description="upload war file to server">
 		<echo>telnet unjar java class AP</echo>
-        <telnet server="${ftp-server}" userid="${ftp-userid}" password="${ftp-password}" timeout="100">
-            <read>/home/${ftp-userid}></read>
-            <write>cd ${server.root}/tmp</write>
-            <read>${server.root}/tmp></read>
-            <write>jar xvf ${app.name}.jar</write>
-            <read>${server.root}/tmp></read>
-            <write>cd ..</write>
-            <read>${server.root}></read>
-            <write>rm -Rf ${app.name}_bak</write>
-            <read>${server.root}></read>
-            <write>mv ${app.name} ${app.name}_bak</write>
-            <read>${server.root}></read>
-            <write>mv tmp ${app.name}</write>
-            <read>${server.root}></read>
-          </telnet>	
+		<telnet server="${ftp-server}" userid="${ftp-userid}" password="${ftp-password}"
+			timeout="100">
+			<read>/home/${ftp-userid}></read>
+			<write>cd ${server.root}/tmp</write>
+			<read>${server.root}/tmp></read>
+			<write>jar xvf ${app.name}.jar</write>
+			<read>${server.root}/tmp></read>
+			<write>cd ..</write>
+			<read>${server.root}></read>
+			<write>rm -Rf ${app.name}_bak</write>
+			<read>${server.root}></read>
+			<write>mv ${app.name} ${app.name}_bak</write>
+			<read>${server.root}></read>
+			<write>mv tmp ${app.name}</write>
+			<read>${server.root}></read>
+		</telnet>
 	</target>
-	
+
 	<!-- tomat boot / down -->
 	<taskdef name="start" classname="org.apache.catalina.ant.StartTask" />
 	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask" />
 	<taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask" />
 
 	<target name="tomcat-start">
-		<start url="${tomcat.manager.url}" username="admin" password="admin" path="/${app.name}" />
-<!-- 	    <java jar="${tomcat.home}/bin/bootstrap.jar" fork="true"> -->
-<!-- 	        <jvmarg value="-Dcatalina.home=${tomcat.home}"/> -->
-<!-- 	    </java> -->
+		<start url="${tomcat.manager.url}" username="admin" password="admin"
+			path="/${app.name}" />
+		<!-- <java jar="${tomcat.home}/bin/bootstrap.jar" fork="true"> -->
+		<!-- <jvmarg value="-Dcatalina.home=${tomcat.home}"/> -->
+		<!-- </java> -->
 	</target>
-	 
+
 	<target name="tomcat-stop">
-		<stop url="${tomcat.manager.url}" username="admin"  password="admin" path="/${app.name}" />
-<!-- 	    <java jar="${tomcat.home}/bin/bootstrap.jar" fork="true"> -->
-<!-- 	        <jvmarg value="-Dcatalina.home=${tomcat.home}"/> -->
-<!-- 	        <arg line="stop"/> -->
-<!-- 	    </java> -->
-	</target>	
-	
+		<stop url="${tomcat.manager.url}" username="admin" password="admin"
+			path="/${app.name}" />
+		<!-- <java jar="${tomcat.home}/bin/bootstrap.jar" fork="true"> -->
+		<!-- <jvmarg value="-Dcatalina.home=${tomcat.home}"/> -->
+		<!-- <arg line="stop"/> -->
+		<!-- </java> -->
+	</target>
+
 	<target name="tomcat-reload">
-		<reload url="${tomcat.manager.url}" username="admin" password="admin" path="/${app.name}"/>	
+		<reload url="${tomcat.manager.url}" username="admin" password="admin"
+			path="/${app.name}" />
 	</target>
-	
+
 	<target name="tomcat-start-debug">
-	    <java jar="${tomcat.home}/bin/bootstrap.jar" fork="true">
-	        <jvmarg value="-Dcatalina.home=${tomcat.home}"/>
-	        <jvmarg value="-Xdebug"/>
-	        <jvmarg value="-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n"/>
-	    </java>
+		<java jar="${tomcat.home}/bin/bootstrap.jar" fork="true">
+			<jvmarg value="-Dcatalina.home=${tomcat.home}" />
+			<jvmarg value="-Xdebug" />
+			<jvmarg
+				value="-Xrunjdwp:transport=dt_socket,address=8000,server=y,suspend=n" />
+		</java>
 	</target>
-	
+
 	<target name="execRemote" description="launch execRemote script in ci server">
 		<echo message="launch execRemote script in ci server" />
 		<exec executable="cmd">
-			<arg value="/c"/>
-			<arg value="${execRemote}"/>
-			<arg value="${stage}"/>
-			<arg value="${cmd}"/>
+			<arg value="/c" />
+			<arg value="${execRemote}" />
+			<arg value="${stage}" />
+			<arg value="${cmd}" />
 		</exec>
 	</target>
-	
+
 </project>
