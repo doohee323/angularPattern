@@ -6,8 +6,7 @@
 	<property name='app.name' value='${ant.project.name}' />
 
 	<property name='src.dir' value='.' />
-	<property name='src.resources.common' value='src/main/resources/common' />
-	<property name='src.resources.local' value='src/main/resources/local' />
+	<property name='src.resources' value='src/main/resources' />
 	<property name='src.deploy.overwrite' value='src/deploy' />
 	<property name='src.dir.web' value='src/main/webapp' />
 	<property name="src.lib.dir" value="${src.dir.web}/WEB-INF/lib" />
@@ -17,7 +16,6 @@
 
 	<property name='was.dir' value='${deploy.dir}/${app.name}' />
 
-	<property name="common.src.dir" value="src/main/resources/common" />
 	<property name="java.src.dir" value="src/main/java" />
 
 	<path id="build.classpath">
@@ -71,8 +69,7 @@
 		<echo message="sync config from ${java.src.dir} to ${build.dir.classes}" />
 		<sync todir='${build.dir.classes}' includeemptydirs='false'
 			overwrite="true">
-			<fileset dir='${src.resources.common}' />
-			<fileset dir='${src.resources.local}' />
+			<fileset dir='${src.resources}' />
 			<fileset dir='${src.deploy.overwrite}' />
 			<preserveintarget>
 				<include name='**/*.class' />
