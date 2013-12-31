@@ -23,7 +23,8 @@
 		<fileset dir="${tomcat.home}/lib" includes="**/*.jar" />
 	</path>
 	
-	<target name='all' depends='init, compile, config, deploy, devserver, jar, ftp, unjar, tomcat-reload'/>
+<!-- 	<target name='all' depends='init, compile, config, deploy, devserver, jar, ftp, unjar, tomcat-reload'/> -->
+	<target name='all' depends='init, compile, config, deploy, jar, ftp, unjar, tomcat-reload'/>
 
 	<target name='init' description="ant init">
 		<tstamp>
