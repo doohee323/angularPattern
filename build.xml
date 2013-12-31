@@ -24,27 +24,7 @@
 		<fileset dir="${src.lib.dir}" includes="**/*.jar" />
 	</path>
 	
-	<target name='all' depends='git'/>
-<!-- 	<target name='all' depends='init, compile, config, deploy, devserver, jar, ftp, unjar, tomcat-reload'/> -->
-
-	<target name='git' description="ant git">
-		<tstamp>
-			<format property="init.time" pattern="yyyyMMdd-HHmmss" />
-		</tstamp>
-		<delete dir='${build.dir}' quiet='true' />
-		<mkdir dir='${build.dir}' />
-
-		<delete dir='angularPattern' quiet='true' failonerror='false'/>
-		<exec executable="git">
-			<arg value="clone" />
-			<arg value="git@github.com:doohee323/angularPattern.git" />
-		</exec>
-		<move todir="${build.dir}">
-			<fileset dir="angularPattern" />
-		</move>
-
-		<mkdir dir='${build.dir.classes}' />
-	</target>
+	<target name='all' depends='init, compile, config, deploy, devserver, jar, ftp, unjar, tomcat-reload'/>
 
 	<target name='init' description="ant init">
 		<tstamp>
