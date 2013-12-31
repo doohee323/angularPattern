@@ -7,7 +7,6 @@
 
 	<property name='src.dir' value='.' />
 	<property name='src.resources' value='src/main/resources' />
-	<property name='src.deploy.overwrite' value='src/deploy' />
 	<property name='src.dir.web' value='src/main/webapp' />
 	<property name="src.lib.dir" value="${src.dir.web}/WEB-INF/lib" />
 
@@ -71,7 +70,6 @@
 		<sync todir='${build.dir.classes}' includeemptydirs='false'
 			overwrite="true">
 			<fileset dir='${src.resources}' />
-			<fileset dir='${src.deploy.overwrite}' />
 			<preserveintarget>
 				<include name='**/*.class' />
 				<include name='**/*.properties' />
