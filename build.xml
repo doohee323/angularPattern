@@ -23,7 +23,7 @@
 	</path>
 	
 <!-- 	<target name='all' depends='init, compile, config, deploy, devserver, jar, ftp, unjar, tomcat-reload'/> -->
-	<target name='all' depends='init, compile, config, deploy, jar, ftp, unjar, tomcat-reload'/>
+	<target name='all' depends='init, compile, config, deploy, jar, ftp, unjar'/>
 
 	<target name='init' description="ant init">
 		<tstamp>
@@ -137,11 +137,6 @@
 			<read>${server.root}></read>
 		</telnet>
 	</target>
-
-	<!-- tomat boot / down -->
-	<taskdef name="start" classname="org.apache.catalina.ant.StartTask" />
-	<taskdef name="stop" classname="org.apache.catalina.ant.StopTask" />
-	<taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask" />
 
 	<target name="tomcat-start">
 		<start url="${tomcat.manager.url}" username="admin" password="admin"
