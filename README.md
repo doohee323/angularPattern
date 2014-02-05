@@ -7,7 +7,7 @@ angularPattern
 - MongoDb <br>
 # => SAHM Stack
 
-This app is deployed as below.<br>
+This app is deployed as below. <br>
 http://goo.gl/RFMd3L
 
 web app with angular.js, bootstrap and Spring restful
