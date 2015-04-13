@@ -1,7 +1,7 @@
 'use strict';
 
 var config = {
-		url : 'http://localhost\\:8080',
+		url : 'http://localhost\\:8080/rest',
 	// url: 'http://sheeprails.herokuapp.com',
 //	url : 'http://topzone.dyndns.org\\:9080/angularPattern/rest',
 	// url : '/pattern/pt42/masterdetail',
@@ -19,15 +19,15 @@ function($stateProvider, $urlRouterProvider, $locationProvider) {
 
 	// default route
 	$stateProvider.state('default', {
-		templateUrl : './apps/pattern2/views/layout/default.html',
+		templateUrl : '/apps/pattern2/views/layout/default.html',
 		controller : 'DefaultCtrl',
 		abstract : true
 	}).state('default.centers', {
-		templateUrl : './apps/pattern2/views/centers.html',
+		templateUrl : '/apps/pattern2/views/centers.html',
 		controller : 'CentersCtrl',
 	}).state('default.regions', {
 		url : "/regions/:id/:code",
-		templateUrl : './apps/pattern2/views/regions.html',
+		templateUrl : '/apps/pattern2/views/regions.html',
 		controller : 'RegionsCtrl',
 	});
 

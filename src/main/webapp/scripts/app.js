@@ -22,11 +22,11 @@ app.constant('config', config)
 		
 		// default route
 		$stateProvider.state('default', {
-			templateUrl : 'views/layout/default.html',
+			templateUrl : '/views/layout/default.html',
 			controller : 'DefaultCtrl',
 			abstract : true
 		}).state('default.centers', {
-			templateUrl : 'views/main.html',
+			templateUrl : '/views/main.html',
 			controller : 'MainCtrl'
 		});
 

@@ -3,7 +3,7 @@
 angular.module('sheepwebApp')
 .controller('MainCtrl',function($scope) {
 	$scope.title = 'UI Pattern driven!';
-	$scope.slogan = 'Always a pleasure copying your apps.';
+	$scope.slogan = '';
 
 	$scope.patterns = [
 		{

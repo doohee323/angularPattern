@@ -40,7 +40,7 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $timeou
     };
 	
     $scope.goHomeData = function () {
-    	document.location = '/angularPattern';
+    	document.location = '/';
 	}
     
   });

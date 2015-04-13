@@ -48,7 +48,7 @@ app.controller('CentersCtrl', function ($scope, $location, $stateParams, $state,
     }
     
     $scope.goHomeData = function () {
-    	document.location = '/angularPattern';
+    	document.location = '/';
 	}
     
     $scope.goRegionData = function () {

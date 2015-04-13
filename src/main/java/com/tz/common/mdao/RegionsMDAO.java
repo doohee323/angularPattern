@@ -25,7 +25,7 @@ public class RegionsMDAO {
     @Autowired
     private CentersMDAO centersDAO;
 
-    @Autowired
+//    @Autowired
     private SpringMongoTempalte springMongo;
 
     private MongoOperations dao;

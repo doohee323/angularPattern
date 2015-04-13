@@ -12,9 +12,9 @@
 
 	<mvc:annotation-driven />
 
-    <context:component-scan base-package="com.tz.common" use-default-filters="false">
-        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
-    </context:component-scan>
+<!--     <context:component-scan base-package="com.tz.common" use-default-filters="false"> -->
+<!--         <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" /> -->
+<!--     </context:component-scan> -->
 
 	<!-- Declare a view resolver -->
 	<bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver" 

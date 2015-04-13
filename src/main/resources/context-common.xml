@@ -70,14 +70,14 @@
 <!-- 	<mongo:mongo host="${com.tz.mongodb.host}" port="${com.tz.mongodb.port}" /> -->
 <!-- 	<mongo:db-factory dbname="${com.tz.mongodb.dbname}" /> -->
 
-	<bean id="springMongoTempalte" class="com.tz.log.config.SpringMongoTempalte">
-		<property name="host" value="${com.tz.mongodb.host}"></property>
-		<property name="port" value="${com.tz.mongodb.port}"></property>
-		<property name="dbname" value="${com.tz.mongodb.dbname}"></property>
-	</bean>
+<!-- 	<bean id="springMongoTempalte" class="com.tz.log.config.SpringMongoTempalte"> -->
+<!-- 		<property name="host" value="${com.tz.mongodb.host}"></property> -->
+<!-- 		<property name="port" value="${com.tz.mongodb.port}"></property> -->
+<!-- 		<property name="dbname" value="${com.tz.mongodb.dbname}"></property> -->
+<!-- 	</bean> -->
 
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate" depends-on="appProperties">
-		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
-	</bean>    
+<!-- 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate" depends-on="appProperties"> -->
+<!-- 		<constructor-arg name="mongoDbFactory" ref="mongoDbFactory" /> -->
+<!-- 	</bean>     -->
 	
 </beans>

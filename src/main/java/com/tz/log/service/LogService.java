@@ -29,7 +29,7 @@ public class LogService {
 
 	private MongoOperations dao;
 	
-	@Autowired
+//	@Autowired
 	private SpringMongoTempalte springMongo;
 
 	public void log(Object obj, String level, String message) {

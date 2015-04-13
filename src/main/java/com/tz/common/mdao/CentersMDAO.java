@@ -34,7 +34,7 @@ public class CentersMDAO {
     @Autowired
     private LogService logService;
 
-    @Autowired
+//    @Autowired
     private SpringMongoTempalte springMongo;
 
     private MongoOperations dao;
